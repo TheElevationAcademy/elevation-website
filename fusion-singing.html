@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding Fusion Singing | Elevation Academy</title>
+  <style>
+    /* Consistent with your brand */
+
+/* RESET & BASE */
+    :root {
+      --primary: #aa2200;
+      --primary-dark: #882000;
+      --secondary: #e67e22;
+      --light-bg: #fff9f5;
+      --text: #333;
+      --text-light: #777;
+    }
+    
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; color:var(--text); background-color:var(--light-bg); }
+    
+    /* ACCESSIBILITY */
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3 { line-height:1.2; font-weight:600; }
+    a { text-decoration:none; color:var(--primary); transition: color 0.2s; }
+    a:hover { color:var(--primary-dark); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* HEADER */
+    header { 
+      position: sticky; top:0; 
+      background: rgba(255,255,255,0.97); 
+      backdrop-filter: blur(5px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.1); 
+      z-index: 1000; 
+    }
+    .menu { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      padding:1rem 0; 
+    }
+    .logo { 
+      height: 60px; 
+      width: auto; 
+      max-width: 200px; 
+      object-fit:contain; 
+    }
+    .menu nav { display:flex; gap:1.5rem; }
+    .menu nav a { 
+      font-weight:500; 
+      position:relative;
+      padding:0.5rem 0;
+    }
+    .menu nav a::after {
+      content: ''; 
+      position:absolute; 
+      width:0; 
+      height:2px; 
+      background:var(--primary);
+      bottom:0; 
+      left:0; 
+      transition: width 0.3s ease;
+    }
+    .menu nav a:hover::after,
+    .menu nav a:focus::after { width: 100%; }
+
+    /* SECTIONS */
+    section { padding: 4rem 0; }
+    section + section { border-top: 1px solid rgba(0,0,0,0.05); }
+    section h2 { 
+      text-align:center; 
+      color:var(--primary); 
+      font-size:2.4rem; 
+      margin-bottom:1.5rem;
+      position:relative;
+    }
+    section h2::after {
+      content: '';
+      display:block;
+      width:80px;
+      height:4px;
+      background:var(--primary);
+      margin:0.8rem auto;
+      border-radius:2px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 85vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:2rem;
+      background:
+        linear-gradient(to bottom, rgba(255,236,210,0.8), rgba(252,182,159,0.8)),
+        url('background.png') center/cover no-repeat fixed;
+    }
+    .hero-content { max-width:800px; }
+    .hero h1 { 
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      margin-bottom:1rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    .hero p { 
+      font-size:1.2rem;
+      margin: 0 auto 2rem;
+      max-width:80%;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .cta-btn {
+      display: inline-block;
+      background:var(--primary); 
+      color:#fff; 
+      padding:0.8rem 2rem;
+      border:none; 
+      border-radius:6px; 
+      font-size:1.1rem; 
+      font-weight:500;
+      cursor:pointer;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    .cta-btn:hover, 
+    .cta-btn:focus { 
+      background:var(--primary-dark); 
+      transform: translateY(-2px); 
+      box-shadow:0 6px 12px rgba(0,0,0,0.25);
+    }
+
+    /* FEATURES */
+    .features {
+      display:grid; 
+      gap:1.8rem; 
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    }
+    .feature {
+      background:#fff; 
+      padding:1.8rem; 
+      border-radius:8px; 
+      border:1px solid #eee;
+      transition: all 0.3s ease;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    }
+    .feature h3 { 
+      color:var(--secondary); 
+      margin-bottom:0.8rem; 
+      font-size:1.25rem;
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+    }
+    .feature h3::before {
+      content:'✓';
+      color:var(--primary);
+    }
+
+    /* FORM */
+    .form-container {
+      max-width:800px; 
+      margin:2rem auto;
+      padding:2.5rem; 
+      background:#fff; 
+      border:1px solid #eee; 
+      border-radius:12px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    }
+    .form-container iframe {
+      width:100%; 
+      min-height:700px; 
+      border:none; 
+      border-radius:4px;
+      loading:lazy;
+    }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      background: 
+        linear-gradient(to top, rgba(255,255,255,0.96), rgba(255,255,255,0.96)),
+        url('tabla_sunset.png') center/cover no-repeat;
+    }
+    .testimonial { 
+      max-width:700px; 
+      background:#fff; 
+      margin:2rem auto; 
+      padding:2rem;
+      border-radius:12px; 
+      border:1px solid #eee; 
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+      position:relative;
+    }
+    .testimonial::before {
+      content:'""';
+      position:absolute;
+      top:1rem;
+      left:1.5rem;
+      font-size:4rem;
+      color:rgba(170,34,0,0.1);
+      line-height:1;
+    }
+    .testimonial p { 
+      font-style:italic; 
+      margin-bottom:1.5rem;
+      font-size:1.1rem;
+      position:relative;
+      z-index:1;
+    }
+    .testimonial h4 { 
+      text-align:right; 
+      color:var(--text-light); 
+      font-weight:600;
+    }
+
+    /* PRICING */
+    .pricing {
+      display:grid; 
+      gap:2rem; 
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    }
+    .plan {
+      background:#fff; 
+      padding:2.5rem 2rem; 
+      border-radius:12px; 
+      border:1px solid #eee;
+      text-align:center; 
+      transition: all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .plan::after {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:4px;
+      background:var(--primary);
+    }
+    .plan:hover {
+      transform: translateY(-6px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.1);
+    }
+    .plan h3 { 
+      font-size:1.4rem; 
+      color:var(--primary); 
+      margin-bottom:1rem;
+    }
+    .plan .price { 
+      font-size:2rem; 
+      margin:1rem 0; 
+      font-weight:700;
+      color:var(--primary);
+    }
+    .plan .price::before {
+      content:'₹';
+      font-size:1.2rem;
+      vertical-align:top;
+    }
+    .plan p { margin-bottom:1.5rem; }
+
+    /* VIDEOS */
+    .videos {
+      display:grid; 
+      gap:1.5rem; 
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      justify-items:center;
+    }
+    .videos iframe {
+      width:100%; 
+      max-width:560px; 
+      aspect-ratio:16/9;
+      border:none; 
+      border-radius:12px; 
+      box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .videos iframe:hover {
+      transform: scale(1.02);
+    }
+
+    /* BLOG */
+    .blog {
+      display:grid; 
+      gap:2rem; 
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    }
+    .blog-article {
+      background:#fff; 
+      padding:1.8rem; 
+      border:1px solid #eee; 
+      border-radius:12px;
+      transition: all 0.3s ease;
+    }
+    .blog-article:hover {
+      transform: translateY(-4px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    }
+    .blog-article h3 { 
+      font-size:1.3rem; 
+      color:var(--primary); 
+      margin-bottom:0.8rem;
+    }
+    .blog-article .read-more {
+      display:inline-block;
+      margin-top:1rem;
+      font-weight:500;
+      color:var(--primary);
+    }
+
+    /* CONTACT */
+    .contact-info {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:1rem;
+      margin-top:1.5rem;
+    }
+    .contact-info a {
+      display:inline-flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:500;
+      padding:0.5rem;
+    }
+    .contact-info a:hover {
+      text-decoration:underline;
+    }
+    .social-links {
+      display:flex;
+      gap:1rem;
+      margin-top:1rem;
+    }
+    .social-links a {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:rgba(170,34,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      background:var(--primary);
+      color:white;
+      transform:translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align:center; 
+      padding:2rem 1rem;
+      font-size:0.9rem; 
+      color:var(--text-light);
+      border-top:1px solid rgba(0,0,0,0.05);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to {
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* MEDIA QUERIES */
+    @media(max-width:768px) {
+      .menu { flex-direction:column; gap:1rem; }
+      .menu nav { flex-wrap:wrap; justify-content:center; gap:1rem; }
+      
+      section { padding:3rem 0; }
+      section h2 { font-size:2rem; }
+      
+      .hero { min-height:75vh; }
+      .hero p { max-width:90%; }
+      
+      .form-container { padding:1.5rem; }
+    }
+
+    @media(max-width:480px) {
+      .hero h1 { font-size:2rem; }
+      .hero p { font-size:1rem; }
+      
+      .cta-btn { font-size:1rem; padding:0.7rem 1.5rem; }
+      
+      .feature, .plan, .blog-article { padding:1.5rem; }
+    }
+    :root {
+      --primary: #aa2200;
+      --primary-light: rgba(170,34,0,0.1);
+      --text: #333;
+      --light-bg: #fff9f5;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      background: #fff;
+    }
+    
+    header {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 60px;
+    }
+    
+    .blog-header {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    
+    .blog-title {
+      color: var(--primary);
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    
+    .blog-meta {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    
+    .featured-image {
+      width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .content-wrapper {
+      padding-bottom: 3rem;
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin: 3rem 0 1.5rem;
+      font-size: 1.8rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    h2::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.3em;
+      height: 1.2em;
+      width: 5px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .concept-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid rgba(170,34,0,0.1);
+    }
+    
+    .fusion-example {
+      display: flex;
+      align-items: center;
+      background: var(--light-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      gap: 1.5rem;
+    }
+    
+    .fusion-example .icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    
+    .fusion-example div {
+      flex: 1;
+    }
+    
+    blockquote {
+      background: var(--light-bg);
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      border-radius: 0 4px 4px 0;
+    }
+    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+    
+    .comparison-table th {
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem;
+      text-align: left;
+    }
+    
+    .comparison-table td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .comparison-table tr:nth-child(even) {
+      background: var(--light-bg);
+    }
+    
+    .cta-box {
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      margin: 4rem 0;
+    }
+    
+    .cta-box .cta-btn {
+      background: white;
+      color: var(--primary);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .cta-box .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 600px) {
+      .blog-title {
+        font-size: 1.8rem;
+      }
+      
+      .fusion-example {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .comparison-table {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+<div class="menu">
+    <a href="index.html"><img src="logo.jpeg" alt="Elevation Academy" class="logo"></a>
+<nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+ <a href="#contact">Contact</a>
+  </nav>
+    </div>
+  </header>
+  <main>
+    <article class="content-wrapper">
+      <div class="blog-header">
+        <h1 class="blog-title">Understanding Fusion Singing: Blending Traditions Creatively</h1>
+        <div class="blog-meta">By Karishma Tamane | June 2025 | Vocal Techniques</div>
+        <img src="Classical fusion singing.jpeg" alt="Singer blending classical and contemporary styles" class="featured-image">
+      </div>
+      
+      <p>Fusion singing is where Hindustani classical meets Bollywood, where ragas shake hands with pop melodies. At Elevation Academy, we've developed a systematic approach to help singers navigate this exciting hybrid space.</p>
+      
+      <div class="concept-card">
+        <h2>What is Fusion Singing?</h2>
+        <p>True fusion isn't just alternating between styles—it's creating a new musical language where:</p>
+        <ul>
+          <li>Classical <strong>raga phrases</strong> enhance contemporary songs</li>
+          <li>Western <strong>harmonic progressions</strong> meet Indian <strong>microtones</strong></li>
+          <li>Traditional <strong>taal cycles</strong> blend with modern <strong>grooves</strong></li>
+        </ul>
+        
+        <div class="fusion-example">
+          <h2><div class="image"><img src="bajirao.jpg" alt="Elevation Academy" class="logo"></div></h2>
+          <div>
+            <h3>Real-World Example</h3>
+            <p>Listen to how Shreya Ghoshal's "Mohe Rang Do Laal" (Bajirao Mastani) uses <strong>Raag Bageshree</strong> alap in a filmi composition, or A.R. Rahman's "Kun Faya Kun" blending <strong>sufi</strong> with <strong>contemporary arrangements</strong>.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="concept-card">
+        <h2>The 4 Pillars of Effective Fusion</h2>
+        
+        <table class="comparison-table">
+          <tr>
+            <th>Element</th>
+            <th>Classical Foundation</th>
+            <th>Contemporary Adaptation</th>
+          </tr>
+          <tr>
+            <td><strong>Ornamentation</strong></td>
+            <td>Meend, Gamak, Andolan</td>
+            <td>Selective use for emotional emphasis</td>
+          </tr>
+          <tr>
+            <td><strong>Rhythm</strong></td>
+            <td>Teentaal (16 beats), Ektaal (12 beats)</td>
+            <td>Syncopation with 4/4 or 6/8 patterns</td>
+          </tr>
+          <tr>
+            <td><strong>Phrasing</strong></td>
+            <td>Vilambit, Madhya, Drut laya</td>
+            <td>Verse-chorus structure with raga-based interludes</td>
+          </tr>
+          <tr>
+            <td><strong>Voice Production</strong></td>
+            <td>Open throat, drone-based</td>
+            <td>Mic technique, dynamic range control</td>
+          </tr>
+        </table>
+      </div>
+      
+      <div class="concept-card">
+        <h2>3-Step Fusion Practice Method</h2>
+        
+        <div class="fusion-example">
+          <div class="icon">1</div>
+          <div>
+            <h3>Deconstruct</h3>
+            <p>Analyze your favorite fusion songs. Identify where classical elements appear (e.g., which swaras form the song's hook).</p>
+          </div>
+        </div>
+        
+        <div class="fusion-example">
+          <div class="icon">2</div>
+          <div>
+            <h3>Adapt</h3>
+            <p>Take a simple raga phrase (e.g., Sa Ga Ma Pa from Yaman) and sing it over a pop chord progression.</p>
+          </div>
+        </div>
+        
+        <div class="fusion-example">
+          <div class="icon">3</div>
+          <div>
+            <h3>Blend</h3>
+            <p>Create transitions between styles (e.g., start a phrase with clean classical tone, end with vibrato).</p>
+          </div>
+        </div>
+        
+        <blockquote>
+          "The magic happens in the transitions—how you move between straight notes and meends, between strict taal and rubato phrasing." — Karishma's teaching notes
+        </blockquote>
+      </div>
+      
+      <div class="concept-card">
+        <h2>Common Fusion Pitfalls to Avoid</h2>
+        <ul>
+          <li><strong>Over-ornamentation:</strong> Decorating every note loses impact</li>
+          <li><strong>Scale hopping:</strong> Randomly switching ragas creates dissonance</li>
+          <li><strong>Rhythm confusion:</strong> Mixing talas without clear resolution points</li>
+          <li><strong>Vocal strain:</strong> Forcing classical voice production in pop contexts</li>
+        </ul>
+        
+        <div class="fusion-example" style="background:#f8f8f8;">
+          <div class="icon">💡</div>
+          <div>
+            <h3>Pro Tip</h3>
+            <p>Record yourself singing the same phrase in pure classical, pure contemporary, then blended style. Compare the three versions.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="cta-box">
+        <h2 style="color:white; border-bottom:none; padding-left:0;">Master Fusion Singing With Us</h2>
+        <p>Our 3-Month Course includes a dedicated "Fusion Lab" module with customized exercises</p>
+        <a href="3-month-course.html" class="cta-btn">Explore Course Modules</a>
+      </div>
+    </article>
+  </main>
+  
+    <section id="contact" class="container">
+      <h2>Contact Us</h2>
+      <div class="contact-info">
+        <a href="mailto:thelevationaademy@gmail.com" aria-label="Email us">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          thelevationacademy@gmail.com
+        </a>
+        <a href="tel:+919266213394" aria-label="Call us">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          +91 92662 13394
+        </a>
+        <a href="https://www.youtube.com/channel/UC4YjN2zEqRm6n9LAin2c9Iw" target="_blank" rel="noopener" aria-label="Visit our YouTube channel">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+          </svg>
+          Visit Our Channel
+        </a>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>&copy; 2025 The Elevation Academy. All rights reserved.</p>
+    <p><a href="privacy policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+  </footer>
+</body>
+</html>
