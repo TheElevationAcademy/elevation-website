@@ -706,6 +706,8 @@
           <option>Thursday</option>
           <option>Friday</option>
           <option>Saturday</option>
+          <option>Sunday</option>
+          
         </select>
         <select name="time" required>
           <option value="">Preferred Time</option>
@@ -859,7 +861,7 @@
 
         // Step 2: Initialize Razorpay
         const options = {
-          key: 'rzp_test_JwUVuji3Pk2CPI', // REPLACE WITH YOUR KEY
+          key: 'rzp_live_dvzzH4coLq652M', // REPLACE WITH YOUR KEY
           amount: selectedAmount * 100,
           currency: 'INR',
           name: 'The Elevation Academy',
