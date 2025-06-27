@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Elevation Academy | Enroll Now</title>
+  <meta name="description" content="Enroll in professional vocal training courses at The Elevation Academy - Hindustani and Bollywood fusion singing lessons">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+/* RESET & BASE */
+    :root {
+      --primary: #aa2200;
+      --primary-dark: #882000;
+      --secondary: #e67e22;
+      --light-bg: #fff9f5;
+      --text: #333;
+      --text-light: #777;
+    }
+    
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; color:var(--text); background-color:var(--light-bg); }
+    
+    /* ACCESSIBILITY */
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3 { line-height:1.2; font-weight:600; }
+    a { text-decoration:none; color:var(--primary); transition: color 0.2s; }
+    a:hover { color:var(--primary-dark); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* HEADER */
+    header { 
+      position: sticky; top:0; 
+      background: rgba(255,255,255,0.97); 
+      backdrop-filter: blur(5px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.1); 
+      z-index: 2000; 
+    }
+    .menu { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      padding:1rem 0; 
+    }
+    .logo { 
+      height: 60px; 
+      width: auto; 
+      max-width: 200px; 
+      object-fit:contain; 
+    }
+    .menu nav { display:flex; gap:1.5rem; }
+    .menu nav a { 
+      font-weight:500; 
+      position:relative;
+      padding:0.5rem 0;
+    }
+    .menu nav a::after {
+      content: ''; 
+      position:absolute; 
+      width:0; 
+      height:2px; 
+      background:var(--primary);
+      bottom:0; 
+      left:0; 
+      transition: width 0.3s ease;
+    }
+    .menu nav a:hover::after,
+    .menu nav a:focus::after { width: 100%; }
+
+    /* SECTIONS */
+    section { padding: 4rem 0; }
+    section + section { border-top: 1px solid rgba(0,0,0,0.05); }
+    section h2 { 
+      text-align:center; 
+      color:var(--primary); 
+      font-size:2.4rem; 
+      margin-bottom:1.5rem;
+      position:relative;
+    }
+    section h2::after {
+      content: '';
+      display:block;
+      width:80px;
+      height:4px;
+      background:var(--primary);
+      margin:0.8rem auto;
+      border-radius:2px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 85vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:2rem;
+      background:
+        linear-gradient(to bottom, rgba(255,236,210,0.8), rgba(252,182,159,0.8)),
+        url('Background.png') center/cover no-repeat fixed;
+    }
+    .hero-content { max-width:800px; }
+    .hero h1 { 
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      margin-bottom:1rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    .hero p { 
+      font-size:1.2rem;
+      margin: 0 auto 2rem;
+      max-width:80%;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .cta-btn {
+      display: inline-block;
+      background:var(--primary); 
+      color:#fff; 
+      padding:0.8rem 2rem;
+      border:none; 
+      border-radius:6px; 
+      font-size:1.1rem; 
+      font-weight:500;
+      cursor:pointer;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    .cta-btn:hover, 
+    .cta-btn:focus { 
+      background:var(--primary-dark); 
+      transform: translateY(-2px); 
+      box-shadow:0 6px 12px rgba(0,0,0,0.25);
+    }
+
+    /* FEATURES */
+    .features {
+      display:grid; 
+      gap:1.8rem; 
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    }
+    .feature {
+      background:#fff; 
+      padding:1.8rem; 
+      border-radius:8px; 
+      border:1px solid #eee;
+      transition: all 0.3s ease;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    }
+    .feature h3 { 
+      color:var(--secondary); 
+      margin-bottom:0.8rem; 
+      font-size:1.25rem;
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+    }
+    .feature h3::before {
+      content:'✓';
+      color:var(--primary);
+    }
+
+    /* FORM */
+    .form-container {
+      max-width:800px; 
+      margin:2rem auto;
+      padding:2.5rem; 
+      background:#fff; 
+      border:1px solid #eee; 
+      border-radius:12px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    }
+    .form-container iframe {
+      width:100%; 
+      min-height:700px; 
+      border:none; 
+      border-radius:4px;
+      loading:lazy;
+    }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      background: 
+        linear-gradient(to top, rgba(255,255,255,0.96), rgba(255,255,255,0.96)),
+        url('tabla_sunset.png') center/cover no-repeat;
+    }
+    .testimonial { 
+      max-width:700px; 
+      background:#fff; 
+      margin:2rem auto; 
+      padding:2rem;
+      border-radius:12px; 
+      border:1px solid #eee; 
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+      position:relative;
+    }
+    .testimonial::before {
+      content:'""';
+      position:absolute;
+      top:1rem;
+      left:1.5rem;
+      font-size:4rem;
+      color:rgba(170,34,0,0.1);
+      line-height:1;
+    }
+    .testimonial p { 
+      font-style:italic; 
+      margin-bottom:1.5rem;
+      font-size:1.1rem;
+      position:relative;
+      z-index:1;
+    }
+    .testimonial h4 { 
+      text-align:right; 
+      color:var(--text-light); 
+      font-weight:600;
+    }
+
+    /* PRICING */
+    .pricing {
+      display:grid; 
+      gap:2rem; 
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    }
+    .plan {
+      background:#fff; 
+      padding:2.5rem 2rem; 
+      border-radius:12px; 
+      border:1px solid #eee;
+      text-align:center; 
+      transition: all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .plan::after {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:4px;
+      background:var(--primary);
+    }
+    .plan:hover {
+      transform: translateY(-6px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.1);
+    }
+    .plan h3 { 
+      font-size:1.4rem; 
+      color:var(--primary); 
+      margin-bottom:1rem;
+    }
+    .plan .price { 
+      font-size:2rem; 
+      margin:1rem 0; 
+      font-weight:700;
+      color:var(--primary);
+    }
+    .plan .price::before {
+      content:'₹';
+      font-size:1.2rem;
+      vertical-align:top;
+    }
+    .plan p { margin-bottom:1.5rem; }
+
+    /* VIDEOS */
+    .videos {
+      display:grid; 
+      gap:1.5rem; 
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      justify-items:center;
+    }
+    .videos iframe {
+      width:100%; 
+      max-width:560px; 
+      aspect-ratio:16/9;
+      border:none; 
+      border-radius:12px; 
+      box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .videos iframe:hover {
+      transform: scale(1.02);
+    }
+
+    /* BLOG */
+    .blog {
+      display:grid; 
+      gap:2rem; 
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    }
+    .blog-article {
+      background:#fff; 
+      padding:1.8rem; 
+      border:1px solid #eee; 
+      border-radius:12px;
+      transition: all 0.3s ease;
+    }
+    .blog-article:hover {
+      transform: translateY(-4px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    }
+    .blog-article h3 { 
+      font-size:1.3rem; 
+      color:var(--primary); 
+      margin-bottom:0.8rem;
+    }
+    .blog-article .read-more {
+      display:inline-block;
+      margin-top:1rem;
+      font-weight:500;
+      color:var(--primary);
+    }
+
+    /* CONTACT */
+    .contact-info {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:1rem;
+      margin-top:1.5rem;
+    }
+    .contact-info a {
+      display:inline-flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:500;
+      padding:0.5rem;
+    }
+    .contact-info a:hover {
+      text-decoration:underline;
+    }
+    .social-links {
+      display:flex;
+      gap:1rem;
+      margin-top:1rem;
+    }
+    .social-links a {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:rgba(170,34,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      background:var(--primary);
+      color:white;
+      transform:translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align:center; 
+      padding:2rem 1rem;
+      font-size:0.9rem; 
+      color:var(--text-light);
+      border-top:1px solid rgba(0,0,0,0.05);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to {
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* MEDIA QUERIES */
+    @media(max-width:768px) {
+      .menu { flex-direction:column; gap:1rem; }
+      .menu nav { flex-wrap:wrap; justify-content:center; gap:1rem; }
+      
+      section { padding:3rem 0; }
+      section h2 { font-size:2rem; }
+      
+      .hero { min-height:75vh; }
+      .hero p { max-width:90%; }
+      
+      .form-container { padding:1.5rem; }
+    }
+
+    @media(max-width:480px) {
+      .hero h1 { font-size:2rem; }
+      .hero p { font-size:1rem; }
+      
+      .cta-btn { font-size:1rem; padding:0.7rem 1.5rem; }
+      
+      .feature, .plan, .blog-article { padding:1.5rem; }
+    }
+    /* Consistent with index.html styles */
+    :root {
+      --primary: #aa2200;
+      --primary-dark: #882000;
+      --secondary: #e67e22;
+      --light-bg: #fff9f5;
+      --text: #333;
+      --text-light: #777;
+    }
+    
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { 
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+      line-height:1.6; 
+      color:var(--text); 
+      background-color:var(--light-bg); 
+    }
+    
+    /* Header - matches index.html */
+    header { 
+      position: sticky; top:0; 
+      background: rgba(255,255,255,0.97); 
+      backdrop-filter: blur(5px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.1); 
+      z-index: 2000; 
+      padding: 1rem 0;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .menu { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+    }
+    .logo { 
+      height: 60px; 
+      width: auto; 
+      max-width: 200px; 
+      object-fit:contain; 
+    }
+   .menu nav { display:flex; gap:1.5rem; }
+    .menu nav a { 
+      font-weight:500; 
+      position:relative;
+      padding:0.5rem 0;
+    }
+    .menu nav a::after {
+      content: ''; 
+      position:absolute; 
+      width:0; 
+      height:2px; 
+      background:var(--primary);
+      bottom:0; 
+      left:0; 
+      transition: width 0.3s ease;
+    }
+    .menu nav a:hover::after,
+    .menu nav a:focus::after { width: 100%; }
+
+    
+    /* Hero section */
+    .hero {
+      min-height: 60vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:2rem;
+      background:
+        linear-gradient(to bottom, rgba(255,236,210,0.8), rgba(252,182,159,0.8)),
+        url('Background.png') center/cover no-repeat fixed;
+    }
+   .hero-content { max-width:800px; }
+    .hero h1 { 
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      margin-bottom:1rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    .hero p { 
+      font-size:1.2rem;
+      margin: 0 auto 2rem;
+      max-width:80%;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+   /* Button styles - matches index.html */
+    .btn {
+      display: inline-block;
+      background:var(--primary); 
+      color:#fff; 
+      padding:0.8rem 2rem;
+      border:none; 
+      border-radius:6px; 
+      font-size:1.1rem; 
+      font-weight:500;
+      cursor:pointer;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .btn:hover, 
+    .btn:focus { 
+      background:var(--primary-dark); 
+      transform: translateY(-2px); 
+      box-shadow:0 6px 12px rgba(0,0,0,0.25);
+    }
+    .btn-secondary {
+      background:var(--secondary);
+    }
+    
+    /* Section styling */
+    section { 
+      padding: 4rem 0;
+    }
+    section h2 { 
+      text-align:center; 
+      color:var(--primary); 
+      font-size:2.4rem; 
+      margin-bottom:1.5rem;
+      font-family: 'Playfair Display', serif;
+      position:relative;
+    }
+    section h2::after {
+      content: '';
+      display:block;
+      width:80px;
+      height:4px;
+      background:var(--primary);
+      margin:0.8rem auto;
+      border-radius:2px;
+    }
+    
+    /* Plans grid - matches pricing section */
+    .plans {
+      display:grid; 
+      gap:2rem; 
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      margin: 2rem auto;
+      max-width: 1100px;
+    }
+    .plan-card {
+      background:#fff; 
+      padding:2.5rem 2rem; 
+      border-radius:12px; 
+      border:1px solid #eee;
+      text-align:center; 
+      transition: all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .plan-card::after {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:4px;
+      background:var(--primary);
+    }
+    .plan-card:hover {
+      transform: translateY(-6px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.1);
+    }
+    .plan-card h3 { 
+      font-size:1.4rem; 
+      color:var(--primary); 
+      margin-bottom:1rem;
+    }
+    .plan-card .price { 
+      font-size:2rem; 
+      margin:1rem 0; 
+      font-weight:700;
+      color:var(--primary);
+    }
+    .plan-card .price::before {
+      content:'₹';
+      font-size:1.2rem;
+      vertical-align:top;
+    }
+    
+    /* Form styling */
+    .form-container {
+      max-width:600px; 
+      margin:2rem auto;
+      padding:2.5rem; 
+      background:#fff; 
+      border:1px solid #eee; 
+      border-radius:12px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    
+    /* Confirmation message */
+    .confirmation {
+      background: #e6ffe6;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 600px;
+      border: 1px solid #a5d6a7;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: var(--primary);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .hidden { display: none; }
+    
+    /* Responsive adjustments */
+    @media(max-width:768px) {
+      section { padding:3rem 0; }
+      section h2 { font-size:2rem; }
+      .form-container { padding:1.5rem; }
+    }
+    @media(max-width:480px) {
+      .hero h1 { font-size:2rem; }
+      .hero p { font-size:1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container menu">
+      <a href="index.html"><img src="logo.jpeg" alt="Elevation Academy" class="logo"></a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Enroll in Vocal Training</h1>
+      <p><i>Begin your journey to master Hindustani and Bollywood fusion singing</i></p>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2>Choose Your Course Duration</h2>
+    <div class="plans">
+      <div class="plan-card">
+        <h3>3 Months</h3>
+        <div class="price">9,000</div>
+        <p>1 Free Professional Recording</p>
+        <button class="btn" onclick="showForm(9000, '3-Month Fusion', 3, 1)">Select Plan</button>
+      </div>
+      <div class="plan-card">
+        <h3>6 Months</h3>
+        <div class="price">13,500</div>
+        <p>2 Free Professional Recordings</p>
+        <button class="btn" onclick="showForm(13500, '6-Month Fusion', 5, 2)">Select Plan</button>
+      </div>
+      <div class="plan-card">
+        <h3>12 Months</h3>
+        <div class="price">27,000</div>
+        <p>3 Free Professional Recordings</p>
+        <button class="btn" onclick="showForm(27000, '12-Month Premium', 7, 3)">Select Plan</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="container hidden" id="booking">
+    <div class="form-container">
+      <h2>Complete Your Enrollment</h2>
+      <form id="enroll-form">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="WhatsApp Number" pattern="[0-9]{10}" title="10-digit number" required>
+        <select name="day" required>
+          <option value="">Preferred Day</option>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+        </select>
+        <select name="time" required>
+          <option value="">Preferred Time</option>
+          <option>09:00 AM</option>
+          <option>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>12:00 PM</option>
+          <option>01:00 PM</option>
+          <option>02:00 PM</option>
+          <option>03:00 PM</option>
+          <option>04:00 PM</option>
+          <option>05:00 PM</option>
+          <option>06:00 PM</option>
+          <option>07:00 PM</option>
+          <option>08:00 PM</option>
+        </select>
+        <div id="songs-container"></div>
+        <button type="submit" class="btn" id="pay-now">
+          <span id="pay-text">🔐 Pay Now</span>
+          <span id="spinner" class="hidden spinner"></span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <section class="container hidden" id="confirmation">
+    <div class="confirmation">
+      <h2>You're All Set! 🎉</h2>
+      <p>Thank you for enrolling in The Elevation Academy! We'll contact you shortly to confirm your slot.</p>
+      <a href="https://wa.me/919266213394" class="btn">💬 Message Us on WhatsApp</a>
+    </div>
+  </section>
+<section id="contact" class="container">
+      <h2>Contact Us</h2>
+      <div class="contact-info">
+        <a href="mailto:support@theelevationacademy.in" aria-label="Email us">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          support@theelevationacademy.in
+        </a>
+        <a href="tel:+919266213394" aria-label="Call us">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          +91 92662 13394
+        </a>
+        <a href="https://www.youtube.com/channel/UC4YjN2zEqRm6n9LAin2c9Iw" target="_blank" rel="noopener" aria-label="Visit our YouTube channel">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+          </svg>
+          Visit Our Channel
+        </a>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/1A5mjLCq9z/?mibextid=wwXIfr" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/thelevationacademy?igsh=MXNsdzBwZ29kZnF5Zw%3D%3D&utm_source=qr" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>&copy; 2025 The Elevation Academy. All rights reserved.</p>
+    <p><a href="privacy policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+  </footer>
+<script>
+    // Global variables
+    let selectedAmount = 0;
+    let courseTitle = '';
+    let songCount = 3;
+    let songFieldsAdded = 0;
+
+    // Show booking form and generate song fields
+    function showForm(amount, title, songs, recordings) {
+      selectedAmount = amount;
+      courseTitle = title;
+      songCount = songs;
+      songFieldsAdded = 0;
+
+      const container = document.getElementById('songs-container');
+      container.innerHTML = '';
+      for (let i = 0; i < songCount; i++) {
+        addSongField();
+      }
+
+      document.getElementById('booking').classList.remove('hidden');
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Add song field dynamically
+    function addSongField() {
+      if (songFieldsAdded >= 10) return;
+      const container = document.getElementById('songs-container');
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = 'song_' + (songFieldsAdded + 1);
+      input.placeholder = 'Song Choice ' + (songFieldsAdded + 1);
+      input.required = true;
+      container.appendChild(input);
+      songFieldsAdded++;
+    }
+
+    // Form submission handler
+    document.getElementById('enroll-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const payBtn = document.getElementById('pay-now');
+      const payText = document.getElementById('pay-text');
+      const spinner = document.getElementById('spinner');
+
+      // Validate form
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Show loading spinner
+      payText.classList.add('hidden');
+      spinner.classList.remove('hidden');
+      payBtn.disabled = true;
+
+      // Prepare data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      data.course = courseTitle;
+      data.amount = selectedAmount;
+
+      try {
+        // Step 1: Send data to Google Apps Script
+        await fetch('https://script.google.com/macros/s/AKfycby-04sHJGKoi7PiCpDjQERxtF1a95jj4uSzusE4xLHI7uSV8CVWiH60NmMkYb6pUgZ0/exec', {
+          method: 'POST',
+          body: new URLSearchParams(data)
+        });
+
+        // Step 2: Initialize Razorpay
+        const options = {
+          key: 'rzp_test_JwUVuji3Pk2CPI', // REPLACE WITH YOUR KEY
+          amount: selectedAmount * 100,
+          currency: 'INR',
+          name: 'The Elevation Academy',
+          description: courseTitle,
+          handler: function(response) {
+            document.getElementById('confirmation').classList.remove('hidden');
+            document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
+          },
+          prefill: {
+            name: data.name,
+            email: data.email,
+            contact: data.phone
+          },
+          theme: { color: '#aa2200' }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (error) {
+        alert('Error: ' + error.message);
+        console.error(error);
+      } finally {
+        payText.classList.remove('hidden');
+        spinner.classList.add('hidden');
+        payBtn.disabled = false;
+      }
+    });
+</script>
+</body>
+</html>
