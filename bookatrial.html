@@ -961,7 +961,7 @@
     });
   </script>
 <script>
-  const form = document.getElementById("trialForm"); // Make sure your form has this ID
+  const form = document.getElementById("trialForm"); // make sure form has id="trialForm"
   const scriptURL = "https://script.google.com/macros/s/AKfycbxjQynILUMF8xcbx0l7tZ-kAs9-7FukduX2Gv_xcxmwo0HLuGLJZbooiVvfDnQNr8pb/exec";
 
   form.addEventListener("submit", (e) => {
@@ -971,6 +971,7 @@
     const data = {};
 
     formData.forEach((value, key) => {
+      // Handle multiple values for same key (like checkboxes)
       if (data[key]) {
         if (Array.isArray(data[key])) {
           data[key].push(value);
@@ -982,7 +983,7 @@
       }
     });
 
-    // Handle checkbox
+    // Add checkbox value for consent
     data.consent = document.getElementById("consent")?.checked || false;
 
     fetch(scriptURL, {
@@ -992,18 +993,15 @@
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("✅ Form submitted successfully!");
-          form.reset();
-        } else {
-          alert("❌ Failed to submit form.");
-        }
-      })
-      .catch((error) => {
-        console.error("❌ Error!", error);
-        alert("❌ Error submitting form. Check console for details.");
-      });
+    .then((res) => res.json())
+    .then((res) => {
+      alert("✅ Trial booked successfully!");
+      form.reset();
+    })
+    .catch((err) => {
+      console.error("❌ Error:", err);
+      alert("❌ Something went wrong. Please try again.");
+    });
   });
 </script>
 
