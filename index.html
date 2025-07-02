@@ -439,11 +439,29 @@
       <div class="hero-content">
         <h1>The Elevation Academy</h1>
         <p><em>Find your voice, Record your dream, Rise with guidance.</em></p>
-        <button class="cta-btn">
-          Book a Trial
-        </button>
+   <button id="openTrialModal" class="bg-blue-600 text-white px-4 py-2 rounded">
+  Book a Trial
+</button>
+ 
       </div>
     </section>
+
+    <!-- Modal Overlay -->
+<div id="trialModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden items-center justify-center">
+  <div class="bg-white max-w-4xl w-full p-6 rounded-lg shadow-lg relative">
+    <!-- Close Button -->
+    <button id="closeModal" class="absolute top-3 right-4 text-gray-500 hover:text-black text-2xl">&times;</button>
+
+    <!-- Trial Form goes here -->
+    <!-- Paste the form HTML here inside this div (only the <form> part, not full HTML) -->
+    <form id="trialForm" class="space-y-6">
+      <!-- your form fields here (input, select, etc.) -->
+    </form>
+
+    <p id="successMessage" class="mt-4 text-green-600 font-semibold hidden">Form submitted successfully!</p>
+  </div>
+</div>
+
 
     <section id="about" class="container">
       <h2>About the Academy</h2>
@@ -659,41 +677,36 @@
       });
     });
   </script>
-  <!-- Modal -->
-<div id="trialFormModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:3000;">
-  <div style="background:#fff; width:90%; max-width:700px; margin:5% auto; padding:2rem; position:relative; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.2); height:80vh;">
-    <!-- Close Button -->
-    <span onclick="closeModal()" style="position:absolute; top:10px; right:20px; font-size:24px; cursor:pointer;">❌</span>
-
-    <!-- Embed the form via iframe -->
-    <iframe 
-      src="https://theelevationacademy.github.io/elevation-form-builder/" 
-      width="100%" 
-      height="100%" 
-      frameborder="0"
-      style="border:none; border-radius:8px;">
-    </iframe>
-  </div>
-</div>
-
+  
 <script>
-  function closeModal() {
-    document.getElementById('trialFormModal').style.display = 'none';
-  }
-</script>
-  <script>
-  function closeModal() {
-    document.getElementById('trialFormModal').style.display = 'none';
-    document.body.style.overflow = ''; // Re-enable scroll
-  }
+  const openBtn = document.getElementById('openTrialModal');
+  const modal = document.getElementById('trialModal');
+  const closeBtn = document.getElementById('closeModal');
 
-  function openModal() {
-    document.getElementById('trialFormModal').style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Disable scroll
-  }
+  openBtn?.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  });
 
-  // Attach to button
-  document.querySelector('.cta-btn').onclick = openModal;
+  closeBtn?.addEventListener('click', () => {
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+  });
+
+  // Optional: close when clicking outside the modal content
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+  });
+
+  // Handle submit
+  document.getElementById('trialForm')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('successMessage').classList.remove('hidden');
+    this.reset();
+  });
 </script>
 
 
