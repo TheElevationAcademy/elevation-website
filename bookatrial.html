@@ -960,5 +960,44 @@
       });
     });
   </script>
+  <script>
+document.getElementById("trial-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+
+  const formData = {
+    name: form.name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    city: form.city.value,
+    age: form.age.value,
+    gender: form.gender.value,
+    areaOfInterest: Array.from(form.querySelectorAll('input[name="areaOfInterest[]"]:checked')).map(el => el.value),
+    languagePreference: form.languagePreference.value,
+    skillLevel: form.skillLevel.value,
+    hearAboutUs: form.hearAboutUs.value,
+    timeSlot: form.timeSlot.value,
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbxjQynILUMF8xcbx0l7tZ-kAs9-7FukduX2Gv_xcxmwo0HLuGLJZbooiVvfDnQNr8pb/exec", {
+    method: "POST",
+    body: JSON.stringify(formData),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      alert("Form submitted successfully!");
+      form.reset();
+    })
+    .catch(error => {
+      alert("There was an error submitting the form.");
+      console.error("Error:", error);
+    });
+});
+</script>
+
 </body>
 </html>
