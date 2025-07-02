@@ -82,6 +82,43 @@
     .menu nav a:hover::after,
     .menu nav a:focus::after { width: 100%; }
 
+  /* Modal transitions */
+  .modal-enter {
+    opacity: 0;
+  }
+  .modal-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  .modal-exit {
+    opacity: 1;
+  }
+  .modal-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  
+  /* Form styling inside modal */
+  #modalFormContent .input {
+    @apply w-full border border-amber-300 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition duration-200 bg-white text-amber-900;
+  }
+  
+  /* Make sure form fits in modal */
+  #modalFormContent {
+    @apply max-h-[80vh] overflow-y-auto pr-2;
+  }
+  
+  /* Custom scrollbar for form */
+  #modalFormContent::-webkit-scrollbar {
+    @apply w-2;
+  }
+  #modalFormContent::-webkit-scrollbar-track {
+    @apply bg-amber-100;
+  }
+  #modalFormContent::-webkit-scrollbar-thumb {
+    @apply bg-amber-400 rounded-full;
+  }
+
     /* SECTIONS */
     section { padding: 4rem 0; }
     section + section { border-top: 1px solid rgba(0,0,0,0.05); }
@@ -439,7 +476,7 @@
       <div class="hero-content">
         <h1>The Elevation Academy</h1>
         <p><em>Find your voice, Record your dream, Rise with guidance.</em></p>
-   <button class="cta-btn" class="bg-blue-600 text-white px-4 py-2 rounded">
+   <button class="cta-btn" a href="bookatrial.html" class="bg-blue-600 text-white px-4 py-2 rounded">
   Book a Trial
 </button>
  
@@ -694,7 +731,73 @@
     this.reset();
   });
 </script>
-
+  <script>
+  // Modal handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('trialModal');
+    const openModalButtons = document.querySelectorAll('.open-trial-modal');
+    const closeModalButton = document.getElementById('closeModal');
+    
+    // Open modal when clicking any "Book a Trial" button
+    openModalButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      });
+    });
+    
+    // Close modal when clicking X button
+    closeModalButton.addEventListener('click', function() {
+      modal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+    
+    // Escape key closes modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+  });
+</script>
+<!-- Popup Modal -->
+<div id="trialModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    
+    <!-- Modal content -->
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <!-- Close button -->
+        <div class="absolute top-0 right-0 pt-4 pr-4">
+          <button id="closeModal" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Your Form Content Here -->
+        <div id="modalFormContent">
+          <!-- The entire form content from your previous code goes here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
