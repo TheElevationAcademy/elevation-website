@@ -966,36 +966,43 @@ document.getElementById("trial-form").addEventListener("submit", function (e) {
 
   const form = e.target;
 
-  const formData = {
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
-    city: form.city.value,
-    age: form.age.value,
-    gender: form.gender.value,
-    areaOfInterest: Array.from(form.querySelectorAll('input[name="areaOfInterest[]"]:checked')).map(el => el.value),
-    languagePreference: form.languagePreference.value,
-    skillLevel: form.skillLevel.value,
-    hearAboutUs: form.hearAboutUs.value,
-    timeSlot: form.timeSlot.value,
-  };
-
-  fetch("https://script.google.com/macros/s/AKfycbxjQynILUMF8xcbx0l7tZ-kAs9-7FukduX2Gv_xcxmwo0HLuGLJZbooiVvfDnQNr8pb/exec", {
-    method: "POST",
-    body: JSON.stringify(formData),
-    headers: {
-      "Content-Type": "application/json"
+  const formData = new FormData(form);
+const data = {};
+formData.forEach((value, key) => {
+  // If the key already exists (for checkboxes like areaOfInterest), convert to array
+  if (data[key]) {
+    if (Array.isArray(data[key])) {
+      data[key].push(value);
+    } else {
+      data[key] = [data[key], value];
     }
-  })
-    .then(response => response.json())
-    .then(data => {
-      alert("Form submitted successfully!");
-      form.reset();
-    })
-    .catch(error => {
-      alert("There was an error submitting the form.");
-      console.error("Error:", error);
-    });
+  } else {
+    data[key] = value;
+  }
+});
+
+// Convert checkbox for "consent" to boolean
+data.consent = form.querySelector('#consent')?.checked || false;
+
+fetch(scriptURL, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+.then(response => {
+  if (response.ok) {
+    alert('Form submitted successfully!');
+    form.reset();
+  } else {
+    alert('Something went wrong. Please try again.');
+  }
+})
+.catch(error => {
+  console.error('Error!', error.message);
+});
+
 });
 </script>
 
