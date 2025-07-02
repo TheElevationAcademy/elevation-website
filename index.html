@@ -670,10 +670,28 @@
       });
     });
   </script>
-  <script>
+  <!-- Modal -->
+<div id="trialFormModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000;">
+  <div style="background:#fff; width:90%; max-width:700px; margin:5% auto; padding:2rem; position:relative; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.2); height:80vh;">
+    <!-- Close Button -->
+    <span onclick="closeModal()" style="position:absolute; top:10px; right:20px; font-size:24px; cursor:pointer;">❌</span>
+
+    <!-- Embed the form via iframe -->
+    <iframe 
+      src="https://theelevationacademy.github.io/elevation-form-builder/" 
+      width="100%" 
+      height="100%" 
+      frameborder="0"
+      style="border:none; border-radius:8px;">
+    </iframe>
+  </div>
+</div>
+
+<script>
   function closeModal() {
     document.getElementById('trialFormModal').style.display = 'none';
   }
 </script>
+
 </body>
 </html>
