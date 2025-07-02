@@ -960,51 +960,54 @@
       });
     });
   </script>
-  <script>
-document.getElementById("trial-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+<script>
+  const form = document.getElementById("trialForm"); // Make sure your form has this ID
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxjQynILUMF8xcbx0l7tZ-kAs9-7FukduX2Gv_xcxmwo0HLuGLJZbooiVvfDnQNr8pb/exec";
 
-  const form = e.target;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  const formData = new FormData(form);
-const data = {};
-formData.forEach((value, key) => {
-  // If the key already exists (for checkboxes like areaOfInterest), convert to array
-  if (data[key]) {
-    if (Array.isArray(data[key])) {
-      data[key].push(value);
-    } else {
-      data[key] = [data[key], value];
-    }
-  } else {
-    data[key] = value;
-  }
-});
+    const formData = new FormData(form);
+    const data = {};
 
-// Convert checkbox for "consent" to boolean
-data.consent = form.querySelector('#consent')?.checked || false;
+    formData.forEach((value, key) => {
+      if (data[key]) {
+        if (Array.isArray(data[key])) {
+          data[key].push(value);
+        } else {
+          data[key] = [data[key], value];
+        }
+      } else {
+        data[key] = value;
+      }
+    });
 
-fetch(scriptURL, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data),
-})
-.then(response => {
-  if (response.ok) {
-    alert('Form submitted successfully!');
-    form.reset();
-  } else {
-    alert('Something went wrong. Please try again.');
-  }
-})
-.catch(error => {
-  console.error('Error!', error.message);
-});
+    // Handle checkbox
+    data.consent = document.getElementById("consent")?.checked || false;
 
-});
+    fetch(scriptURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("✅ Form submitted successfully!");
+          form.reset();
+        } else {
+          alert("❌ Failed to submit form.");
+        }
+      })
+      .catch((error) => {
+        console.error("❌ Error!", error);
+        alert("❌ Error submitting form. Check console for details.");
+      });
+  });
 </script>
+
+
 
 </body>
 </html>
