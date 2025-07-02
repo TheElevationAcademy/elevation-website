@@ -987,75 +987,50 @@ document.getElementById('trialForm').addEventListener('submit', async function(e
       return;
     }
   }
+                                                      </script>
+ <script>
+  const form = document.getElementById("trialForm");
+  const scriptURL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_URL_HERE/exec";
 
-  // Prepare form data
-  const formData = {
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
-    city: form.city.value,
-    age: form.age.value,
-    gender: form.gender.value,
-    areaOfInterest: Array.from(form.querySelectorAll('input[name="interest"]:checked'))
-                      .map(el => el.value).join(', '),
-    languagePreference: form.querySelector('input[name="language"]:checked')?.value || '',
-    skillLevel: form.querySelector('input[name="skill"]:checked')?.value || '',
-    hearAboutUs: form.querySelector('input[name="referral"]:checked')?.value || '',
-    timeSlot: form.querySelector('input[name="timeSlot"]:checked')?.value || '',
-    consent: form.consent.checked ? "Yes" : "No"
-  };
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const data = {};
 
-  try {
-    const response = await fetch(
-      'https://script.google.com/macros/s/AKfycbxjQynILUMF8xcbx0l7tZ-kAs9-7FukduX2Gv_xcxmwo0HLuGLJZbooiVvfDnQNr8pb/exec', 
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+    formData.forEach((value, key) => {
+      if (data[key]) {
+        if (Array.isArray(data[key])) {
+          data[key].push(value);
+        } else {
+          data[key] = [data[key], value];
+        }
+      } else {
+        data[key] = value;
       }
-    );
-
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    
-    const result = await response.json();
-    
-    if (result.result !== "success") {
-      throw new Error(result.message || "Server returned an error");
-    }
-
-    // Show success
-    successMessage.classList.remove('hidden');
-    form.reset();
-    
-    setTimeout(() => {
-      successMessage.classList.add('hidden');
-    }, 5000);
-    
-  } catch (error) {
-    console.error('Submission error:', error);
-    alert(`Error: ${error.message}. Please try again or contact support at support@theelevationacademy.in`);
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book My Free Trial Session';
-  }
-});
-
-// Enhanced time slot selection
-document.querySelectorAll('.time-slot').forEach(slot => {
-  slot.addEventListener('click', function() {
-    const radio = this.querySelector('input[type="radio"]');
-    if (!radio) return;
-    
-    radio.checked = true;
-    document.querySelectorAll('.time-slot').forEach(s => {
-      s.classList.remove('bg-amber-200', 'border-amber-600', 'text-amber-900', 'font-medium');
     });
-    this.classList.add('bg-amber-200', 'border-amber-600', 'text-amber-900', 'font-medium');
+
+    data.consent = document.getElementById("consent").checked;
+
+    fetch(scriptURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(response => {
+      alert("✅ Trial booked successfully!");
+      form.reset();
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      alert("❌ Something went wrong.");
+    });
   });
-});
 </script>
+
 
 </body>
 </html>
