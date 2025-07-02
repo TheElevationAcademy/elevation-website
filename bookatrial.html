@@ -3,138 +3,444 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book a Free Trial</title>
+  <title>Book a Free Trial - Music Classes</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+    body {
+      font-family: 'Noto Serif', 'Times New Roman', serif;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 font-sans">
-  <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
+<body class="bg-amber-50 font-serif">
+  <div class="max-w-4xl mx-auto p-6 bg-amber-50 rounded-lg shadow-md mt-8 mb-8 border border-amber-200">
     <div class="text-center mb-6">
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">Book a Free Trial</h2>
-      <p class="text-gray-600 mb-4">Please select a free trial from the upcoming slots</p>
-      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-        <h3 class="font-semibold text-blue-800 mb-2">What You'll Get in Your Trial:</h3>
-        <p class="text-blue-700">
-          • Learn about War (musical notes) and Saptak (octaves)<br />
-          • Practice singing 1 complete song<br />
-          • Personalized assessment of your vocal abilities
-        </p>
+      <h2 class="text-3xl font-bold text-amber-900 mb-2">Book Your Free Music Trial</h2>
+      <p class="text-amber-800 mb-4">Fill in your details and select from our available time slots</p>
+      <div class="bg-amber-100 p-4 rounded-lg border-l-4 border-amber-500 text-left">
+        <h3 class="font-semibold text-amber-900 mb-2 text-lg"><i class="fas fa-music mr-2 text-amber-700"></i>What You'll Experience:</h3>
+        <ul class="text-amber-800 space-y-1">
+          <li><i class="fas fa-check-circle text-amber-600 mr-2"></i>Introduction to War (musical notes) and Saptak (octaves)</li>
+          <li><i class="fas fa-check-circle text-amber-600 mr-2"></i>Practice singing one complete song with guidance</li>
+          <li><i class="fas fa-check-circle text-amber-600 mr-2"></i>Personalized assessment of your vocal abilities</li>
+          <li><i class="fas fa-check-circle text-amber-600 mr-2"></i>Q&A session with our expert instructors</li>
+        </ul>
       </div>
     </div>
 
     <form id="trialForm" class="space-y-6">
       <!-- Personal Info -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input required type="text" name="name" placeholder="Full Name" class="input" />
-        <input required type="email" name="email" placeholder="Email Address" class="input" />
-        <input required type="tel" name="phone" placeholder="Phone Number" minlength="10" class="input" />
+        <div>
+          <label class="block text-sm font-medium text-amber-900 mb-1">Full Name *</label>
+          <input required type="text" name="name" placeholder="Your full name" class="input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-amber-900 mb-1">Email Address *</label>
+          <input required type="email" name="email" placeholder="Your email" class="input" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-amber-900 mb-1">Phone Number *</label>
+          <input required type="tel" name="phone" placeholder="10-digit number" minlength="10" class="input" />
+        </div>
       </div>
 
       <!-- City, Age, Gender -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <select required name="city" class="input">
-          <option value="">Select City</option>
-          <option value="Mumbai">Mumbai</option>
-          <option value="Delhi">Delhi</option>
-          <option value="Bangalore">Bangalore</option>
-          <!-- Add more cities if needed -->
-        </select>
-        <select required name="age" class="input">
-          <option value="">Select Age</option>
-          <!-- Age from 18–90 -->
-          <script>
-            for (let i = 18; i <= 90; i++) {
-              document.write(`<option value="${i}">${i}</option>`);
-            }
-          </script>
-        </select>
-        <select required name="gender" class="input">
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-          <option value="prefer-not-to-say">Prefer not to say</option>
-        </select>
+        <div>
+          <label class="block text-sm font-medium text-amber-900 mb-1">City *</label>
+          <select required name="city" class="input">
+            <option value="">Select your city</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Pune">Pune</option>
+            <option value="Ahmedabad">Ahmedabad</option>
+            <option value="Jaipur">Jaipur</option>
+            <option value="Surat">Surat</option>
+            <option value="Lucknow">Lucknow</option>
+            <option value="Kanpur">Kanpur</option>
+            <option value="Nagpur">Nagpur</option>
+            <option value="Indore">Indore</option>
+            <option value="Thane">Thane</option>
+            <option value="Bhopal">Bhopal</option>
+            <option value="Visakhapatnam">Visakhapatnam</option>
+            <option value="Patna">Patna</option>
+            <option value="Vadodara">Vadodara</option>
+            <option value="Ghaziabad">Ghaziabad</option>
+            <option value="Ludhiana">Ludhiana</option>
+            <option value="Agra">Agra</option>
+            <option value="Nashik">Nashik</option>
+            <option value="Faridabad">Faridabad</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-amber-900 mb-1">Age *</label>
+          <select required name="age" class="input">
+            <option value="">Select age</option>
+            <script>
+              for (let i = 5; i <= 80; i++) {
+                document.write(`<option value="${i}">${i} years</option>`);
+              }
+            </script>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-amber-900 mb-1">Gender *</label>
+          <select required name="gender" class="input">
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+            <option value="prefer-not-to-say">Prefer not to say</option>
+          </select>
+        </div>
       </div>
 
       <!-- Area of Interest -->
-      <div>
-        <label class="font-semibold block mb-2">Area of Interest <span class="text-red-500">*</span></label>
-        <div class="flex flex-col gap-2">
-          <label><input type="checkbox" name="interest" value="hindustani" required /> Hindustani Classical Vocal</label>
-          <label><input type="checkbox" name="interest" value="bollywood" /> Bollywood Music</label>
-          <label><input type="checkbox" name="interest" value="semiclassical" /> Semi Classical (Thumri, Dadra, Ghazal)</label>
+      <div class="bg-amber-100 p-4 rounded-lg border border-amber-200">
+        <label class="font-semibold block mb-3 text-amber-900">Area of Interest <span class="text-amber-700">*</span></label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="checkbox" name="interest" value="hindustani" class="rounded text-amber-600" required />
+            <span>Hindustani Classical Vocal</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="checkbox" name="interest" value="bollywood" class="rounded text-amber-600" />
+            <span>Bollywood Music</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="checkbox" name="interest" value="semiclassical" class="rounded text-amber-600" />
+            <span>Semi Classical (Thumri, Dadra, Ghazal)</span>
+          </label>
         </div>
       </div>
 
       <!-- Language Preference -->
-      <div>
-        <label class="font-semibold block mb-2">Language Preference</label>
-        <div class="flex gap-6">
-          <label><input type="radio" name="language" value="english" required /> English</label>
-          <label><input type="radio" name="language" value="hindi" /> Hindi</label>
+      <div class="bg-amber-100 p-4 rounded-lg border border-amber-200">
+        <label class="font-semibold block mb-3 text-amber-900">Language Preference <span class="text-amber-700">*</span></label>
+        <div class="flex flex-wrap gap-6">
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="language" value="english" class="text-amber-600" required />
+            <span>English</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="language" value="hindi" class="text-amber-600" />
+            <span>Hindi</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="language" value="bilingual" class="text-amber-600" />
+            <span>Bilingual (English+Hindi)</span>
+          </label>
         </div>
       </div>
 
       <!-- Skill Level -->
-      <div>
-        <label class="font-semibold block mb-2">Current Skill Level</label>
-        <div class="flex gap-6">
-          <label><input type="radio" name="skill" value="beginner" required /> Beginner</label>
-          <label><input type="radio" name="skill" value="intermediate" /> Intermediate</label>
-          <label><input type="radio" name="skill" value="advance" /> Advance</label>
+      <div class="bg-amber-100 p-4 rounded-lg border border-amber-200">
+        <label class="font-semibold block mb-3 text-amber-900">Current Skill Level <span class="text-amber-700">*</span></label>
+        <div class="flex flex-wrap gap-6">
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="skill" value="beginner" class="text-amber-600" required />
+            <span>Beginner (Just starting)</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="skill" value="intermediate" class="text-amber-600" />
+            <span>Intermediate (Some training)</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="skill" value="advance" class="text-amber-600" />
+            <span>Advanced (Formal training)</span>
+          </label>
         </div>
       </div>
 
       <!-- How did you hear -->
-      <div>
-        <label class="font-semibold block mb-2">How did you hear about us?</label>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-          <label><input type="radio" name="referral" value="google" required /> Google Search</label>
-          <label><input type="radio" name="referral" value="instagram" /> Instagram</label>
-          <label><input type="radio" name="referral" value="facebook" /> Facebook</label>
-          <label><input type="radio" name="referral" value="youtube" /> YouTube</label>
-          <label><input type="radio" name="referral" value="referral" /> Friends/Referral</label>
-          <label><input type="radio" name="referral" value="other" /> Other</label>
+      <div class="bg-amber-100 p-4 rounded-lg border border-amber-200">
+        <label class="font-semibold block mb-3 text-amber-900">How did you hear about us? <span class="text-amber-700">*</span></label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="referral" value="google" class="text-amber-600" required />
+            <span>Google Search</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="referral" value="instagram" class="text-amber-600" />
+            <span>Instagram</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="referral" value="facebook" class="text-amber-600" />
+            <span>Facebook</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="referral" value="youtube" class="text-amber-600" />
+            <span>YouTube</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="referral" value="referral" class="text-amber-600" />
+            <span>Friends/Referral</span>
+          </label>
+          <label class="flex items-center space-x-2 text-amber-900">
+            <input type="radio" name="referral" value="other" class="text-amber-600" />
+            <span>Other</span>
+          </label>
         </div>
       </div>
 
       <!-- Time Slot -->
-      <div>
-        <label class="font-semibold block mb-2">Select Time Slot</label>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-          <label><input type="radio" name="timeSlot" value="Monday - 10:00 AM" required /> Mon 10:00 AM</label>
-          <label><input type="radio" name="timeSlot" value="Monday - 1:00 PM" /> Mon 1:00 PM</label>
-          <label><input type="radio" name="timeSlot" value="Tuesday - 2:00 PM" /> Tue 2:00 PM</label>
-          <label><input type="radio" name="timeSlot" value="Sunday - 5:00 PM" /> Sun 5:00 PM</label>
-          <!-- Add more as needed -->
+      <div class="bg-amber-100 p-4 rounded-lg border border-amber-200">
+        <label class="font-semibold block mb-3 text-amber-900">Select Your Preferred Time Slot <span class="text-amber-700">*</span></label>
+        
+        <div class="space-y-4">
+          <!-- Monday -->
+          <div>
+            <h4 class="font-medium text-amber-900 mb-2 flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-amber-700"></i> Monday
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 10:00 AM" required />
+                <span>10:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 11:00 AM" />
+                <span>11:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 12:00 PM" />
+                <span>12:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 1:00 PM" />
+                <span>1:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 2:00 PM" />
+                <span>2:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 3:00 PM" />
+                <span>3:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Monday - 4:00 PM" />
+                <span>4:00 PM</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Tuesday -->
+          <div>
+            <h4 class="font-medium text-amber-900 mb-2 flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-amber-700"></i> Tuesday
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Tuesday - 10:00 AM" />
+                <span>10:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Tuesday - 11:00 AM" />
+                <span>11:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Tuesday - 12:00 PM" />
+                <span>12:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Tuesday - 2:00 PM" />
+                <span>2:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Tuesday - 3:00 PM" />
+                <span>3:00 PM</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Wednesday -->
+          <div>
+            <h4 class="font-medium text-amber-900 mb-2 flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-amber-700"></i> Wednesday
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 9:00 AM" />
+                <span>9:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 10:00 AM" />
+                <span>10:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 11:00 AM" />
+                <span>11:00 AM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 12:00 PM" />
+                <span>12:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 1:00 PM" />
+                <span>1:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 2:00 PM" />
+                <span>2:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Wednesday - 3:00 PM" />
+                <span>3:00 PM</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Saturday -->
+          <div>
+            <h4 class="font-medium text-amber-900 mb-2 flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-amber-700"></i> Saturday
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Saturday - 5:00 PM" />
+                <span>5:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Saturday - 6:00 PM" />
+                <span>6:00 PM</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Sunday -->
+          <div>
+            <h4 class="font-medium text-amber-900 mb-2 flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-amber-700"></i> Sunday
+            </h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Sunday - 1:00 PM" />
+                <span>1:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Sunday - 2:00 PM" />
+                <span>2:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Sunday - 5:00 PM" />
+                <span>5:00 PM</span>
+              </label>
+              <label class="time-slot">
+                <input type="radio" name="timeSlot" value="Sunday - 6:00 PM" />
+                <span>6:00 PM</span>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Consent -->
-      <div class="flex gap-3 border rounded p-3">
-        <input required type="checkbox" name="consent" />
-        <label>I agree to share my contact information for booking confirmation.</label>
+      <div class="flex gap-3 border rounded p-3 bg-amber-100 border-amber-300">
+        <input required type="checkbox" name="consent" class="mt-1 text-amber-600" />
+        <label class="text-sm text-amber-900">
+          I agree to share my contact information for booking confirmation and receiving information about the trial session. I understand that I can unsubscribe at any time.
+        </label>
       </div>
 
-      <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">
-        Book Trial Session
+      <button type="submit" class="w-full bg-amber-700 text-white p-3 rounded-lg hover:bg-amber-800 transition duration-300 flex items-center justify-center space-x-2">
+        <i class="fas fa-calendar-check"></i>
+        <span>Book My Free Trial Session</span>
       </button>
     </form>
 
-    <p id="successMessage" class="mt-4 text-green-600 font-semibold hidden">Form submitted successfully!</p>
+    <div id="successMessage" class="mt-4 p-4 bg-amber-100 border border-amber-400 text-amber-900 rounded hidden">
+      <div class="flex items-center">
+        <i class="fas fa-check-circle text-amber-700 mr-2 text-xl"></i>
+        <div>
+          <h3 class="font-bold">Booking Confirmed!</h3>
+          <p>Thank you for booking your free trial session. We've sent the details to your email.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <style>
     .input {
-      @apply w-full border rounded px-3 py-2 text-sm;
+      @apply w-full border border-amber-300 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition duration-200 bg-white text-amber-900;
+    }
+    
+    .time-slot {
+      @apply border border-amber-300 rounded-md px-3 py-2 text-sm cursor-pointer hover:bg-amber-200 hover:border-amber-400 transition duration-200 flex items-center justify-between bg-white text-amber-900;
+    }
+    
+    .time-slot input[type="radio"] {
+      @apply hidden;
+    }
+    
+    .time-slot input[type="radio"]:checked + span {
+      @apply bg-amber-200 border-amber-600 text-amber-900 font-medium;
+    }
+    
+    .time-slot span {
+      @apply block w-full text-center;
     }
   </style>
 
   <script>
-    document.getElementById('trialForm').addEventListener('submit', function (e) {
+    document.getElementById('trialForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      document.getElementById('successMessage').classList.remove('hidden');
-      this.reset();
+      
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+      
+      // Simulate API call with delay
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Show success message
+        successMessage.classList.remove('hidden');
+        form.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.add('hidden');
+        }, 5000);
+        
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+      } catch (error) {
+        alert('Error submitting form. Please try again.');
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i><span>Book My Free Trial Session</span>';
+      }
+    });
+    
+    // Enhance time slot selection
+    document.querySelectorAll('.time-slot').forEach(slot => {
+      slot.addEventListener('click', function() {
+        const radio = this.querySelector('input[type="radio"]');
+        radio.checked = true;
+        
+        // Update visual state for all slots
+        document.querySelectorAll('.time-slot').forEach(s => {
+          s.classList.remove('bg-amber-200', 'border-amber-600', 'text-amber-900', 'font-medium');
+        });
+        
+        // Highlight selected slot
+        if (radio.checked) {
+          this.classList.add('bg-amber-200', 'border-amber-600', 'text-amber-900', 'font-medium');
+        }
+      });
     });
   </script>
 </body>
