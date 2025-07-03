@@ -959,76 +959,30 @@
         }
       });
     });
+  </script>
+  <script>
+  // your existing code
+</script>
 
-document.getElementById('trialForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const form = e.target;
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const successMessage = document.getElementById('successMessage');
-  
-  // Show loading state
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+<script>
+  // ✨ New code to link form to Google Sheets
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec';
+  const form = document.getElementById('trialForm');
 
-  // Validate required fields
-  const requiredFields = [
-    { element: form.name, name: "Full Name" },
-    { element: form.email, name: "Email" },
-    { element: form.phone, name: "Phone" },
-    { element: form.querySelector('input[name="timeSlot"]:checked'), name: "Time Slot" }
-  ];
-
-  for (const field of requiredFields) {
-    if (!field.element?.value) {
-      alert(`Please fill in ${field.name}`);
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book My Free Trial Session';
-      return;
-    }
-  }
-                                                      </script>
- <script>
-  const form = document.getElementById("trialForm");
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxjQynILUMF8xcbx0l7tZ-kAs9-7FukduX2Gv_xcxmwo0HLuGLJZbooiVvfDnQNr8pb/exec";
-
-  form.addEventListener("submit", (e) => {
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    
     const formData = new FormData(form);
-    const data = {};
-
+    const json = {};
     formData.forEach((value, key) => {
-      if (data[key]) {
-        if (Array.isArray(data[key])) {
-          data[key].push(value);
-        } else {
-          data[key] = [data[key], value];
-        }
-      } else {
-        data[key] = value;
-      }
+      json[key] = value;
     });
-
-    data.consent = document.getElementById("consent").checked;
 
     fetch(scriptURL, {
-      method: "POST",
+      method: 'POST',
+      body: JSON.stringify(json),
       headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(response => {
-      alert("✅ Trial booked successfully!");
-      form.reset();
-    })
-    .catch(err => {
-      console.error("Error:", err);
-      alert("❌ Something went wrong.");
-    });
-  });
+        'Content-Type': 'application/json'
+  
 </script>
 
 
