@@ -988,21 +988,21 @@ document.getElementById('trialForm').addEventListener('submit', async function (
     body: JSON.stringify(data)
   });
 
-  // ✅ Immediately show success message
-  successMessage.classList.remove('hidden');
-  form.reset();
-  setTimeout(() => successMessage.classList.add('hidden'), 5000);
-  successMessage.scrollIntoView({ behavior: 'smooth' });
+// Show success message
+successMessage.classList.remove('hidden');
+form.reset();
+setTimeout(() => successMessage.classList.add('hidden'), 5000);
+successMessage.scrollIntoView({ behavior: 'smooth' });
 
-  // ✅ Send WhatsApp message
-  const name = data.name || "";
-  const city = data.city || "";
-  const timeSlot = data.timeSlot || "";
-  const message = `Hi ${name}, thank you for booking your free trial session with The Elevation Academy. Your session is confirmed for: ${timeSlot} in ${city}. We look forward to seeing you!`;
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappNumber = "919266213394"; // ✅ add country code (91 for India)
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-  window.open(whatsappLink, "_blank");
+// Send WhatsApp message
+const name = data.name || "";
+const city = data.city || "";
+const timeSlot = data.timeSlot || "";
+const message = `Hi ${name}, thank you for booking your free trial session with The Elevation Academy. Your session is confirmed for: ${timeSlot} in ${city}. We look forward to seeing you!`;
+const encodedMessage = encodeURIComponent(message);
+const whatsappLink = `https://wa.me/919266213394?text=${encodedMessage}`;
+window.open(whatsappLink, "_blank");
+
 
 }
 
