@@ -965,13 +965,12 @@
 </script>
 
 <script>
-  const form = document.getElementById("trialForm");
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec"; // Replace with YOUR deployed URL
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
+  try {
+        // Step 1: Send data to Google Apps Script
+        await fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
+          method: 'POST',
+          body: new URLSearchParams(data)
+        });
 
     fetch(scriptURL, {
       method: "POST",
