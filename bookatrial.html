@@ -979,30 +979,32 @@ document.getElementById('trialForm').addEventListener('submit', async function (
   const data = Object.fromEntries(formData.entries());
 
   try {
-   fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
-  method: 'POST',
-  mode: 'no-cors', // ✅ disables preflight checks
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-})
-.then(() => {
-  // ✅ assume success — Google won't return readable response in no-cors mode
+  fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  // ✅ Immediately show success message
   successMessage.classList.remove('hidden');
   form.reset();
   setTimeout(() => successMessage.classList.add('hidden'), 5000);
   successMessage.scrollIntoView({ behavior: 'smooth' });
 
-  // ✅ WhatsApp Auto-Message
+  // ✅ Send WhatsApp message
   const name = data.name || "";
   const city = data.city || "";
   const timeSlot = data.timeSlot || "";
-  const message = `Hi ${name}, thank you for booking your free trial session with The Elevation Academy.%0AYour session is confirmed for: ${timeSlot} in ${city}.%0AWe look forward to seeing you!`;
-  const whatsappNumber = "919266213394"; // ← Change this to your WhatsApp number
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+  const message = `Hi ${name}, thank you for booking your free trial session with The Elevation Academy. Your session is confirmed for: ${timeSlot} in ${city}. We look forward to seeing you!`;
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappNumber = "919266213394"; // ✅ add country code (91 for India)
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
   window.open(whatsappLink, "_blank");
-})
+
+}
 
 .catch((error) => {
   alert("Error submitting form. Please try again.");
