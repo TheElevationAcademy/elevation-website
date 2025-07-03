@@ -965,41 +965,34 @@
 </script>
 
 <script>
-  document.getElementById('trialForm').addEventListener('submit', async function (e) {
+  const form = document.getElementById("trialForm");
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec"; // Replace with YOUR deployed URL
+
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const successMessage = document.getElementById('successMessage');
-
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
-
     const formData = new FormData(form);
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec';
 
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: formData
+    fetch(scriptURL, {
+      method: "POST",
+      body: formData
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.result === "success") {
+          document.getElementById("success-message").style.display = "block";
+          form.reset();
+        } else {
+          alert("Error: " + result.message);
+        }
+      })
+      .catch((error) => {
+        alert("Error submitting form. Please try again.");
+        console.error("Error!", error.message);
       });
-
-      if (!response.ok) throw new Error('Network response was not ok');
-
-      successMessage.classList.remove('hidden');
-      form.reset();
-      setTimeout(() => successMessage.classList.add('hidden'), 5000);
-      successMessage.scrollIntoView({ behavior: 'smooth' });
-
-    } catch (error) {
-      alert('Error submitting form. Please try again.');
-      console.error('Submission error:', error);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i><span>Book My Free Trial Session</span>';
-    }
   });
 </script>
+
 
 
 
