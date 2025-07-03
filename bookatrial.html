@@ -972,10 +972,7 @@
           body: new URLSearchParams(data)
         });
 
-    fetch(scriptURL, {
-      method: "POST",
-      body: formData
-    })
+   
       .then((response) => response.json())
       .then((result) => {
         if (result.result === "success") {
