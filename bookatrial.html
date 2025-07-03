@@ -993,7 +993,17 @@ document.getElementById('trialForm').addEventListener('submit', async function (
   form.reset();
   setTimeout(() => successMessage.classList.add('hidden'), 5000);
   successMessage.scrollIntoView({ behavior: 'smooth' });
+
+  // ✅ WhatsApp Auto-Message
+  const name = data.name || "";
+  const city = data.city || "";
+  const timeSlot = data.timeSlot || "";
+  const message = `Hi ${name}, thank you for booking your free trial session with The Elevation Academy.%0AYour session is confirmed for: ${timeSlot} in ${city}.%0AWe look forward to seeing you!`;
+  const whatsappNumber = "919266213394"; // ← Change this to your WhatsApp number
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+  window.open(whatsappLink, "_blank");
 })
+
 .catch((error) => {
   alert("Error submitting form. Please try again.");
   console.error("Error!", error.message);
