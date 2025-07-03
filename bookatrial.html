@@ -979,25 +979,25 @@ document.getElementById('trialForm').addEventListener('submit', async function (
   const data = Object.fromEntries(formData.entries());
 
   try {
-    await fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
+   fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
   method: 'POST',
+  mode: 'no-cors', // ✅ disables preflight checks
   headers: {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify(data)
+})
+.then(() => {
+  // ✅ assume success — Google won't return readable response in no-cors mode
+  successMessage.classList.remove('hidden');
+  form.reset();
+  setTimeout(() => successMessage.classList.add('hidden'), 5000);
+  successMessage.scrollIntoView({ behavior: 'smooth' });
+})
+.catch((error) => {
+  alert("Error submitting form. Please try again.");
+  console.error("Error!", error.message);
 });
-    const result = await response.json();
-
-    if (result.result === 'success') {
-      successMessage.classList.remove('hidden');
-      form.reset();
-      setTimeout(() => {
-        successMessage.classList.add('hidden');
-      }, 5000);
-      successMessage.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      alert("Error: " + result.message);
-    }
   } catch (error) {
     alert("Error submitting form. Please try again.");
     console.error("Submission error:", error);
