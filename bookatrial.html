@@ -984,7 +984,7 @@
         body: formData
       });
 
-      if (!response.ok) throw new Error('Fetch error: ' + response.statusText);
+      if (!response.ok) throw new Error('Network response was not ok');
 
       successMessage.classList.remove('hidden');
       form.reset();
@@ -993,13 +993,14 @@
 
     } catch (error) {
       alert('Error submitting form. Please try again.');
-      console.error(error);
+      console.error('Submission error:', error);
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i><span>Book My Free Trial Session</span>';
     }
   });
 </script>
+
 
 
 
