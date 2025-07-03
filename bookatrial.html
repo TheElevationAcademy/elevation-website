@@ -965,56 +965,50 @@
 </script>
 
 <script>
-  document.getElementById('trialForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+document.getElementById('trialForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const successMessage = document.getElementById('successMessage');
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const successMessage = document.getElementById('successMessage');
 
-    // Show loading
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
 
-    // Gather form data
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
 
-    try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwRrTVbS67V4zqn6I7xqvPey197yA8X3s3qEOlPB8ONoiYmJdtOzVORt_x0ErWXh6zV/exec', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+    const result = await response.json();
 
-      const result = await response.json();
-
-      if (result.result === "success") {
-        // Show success message
-        successMessage.classList.remove('hidden');
-        form.reset();
-
-        setTimeout(() => {
-          successMessage.classList.add('hidden');
-        }, 5000);
-
-        successMessage.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        alert("Error: " + result.message);
-      }
-    } 
-    } finally {
-      // Reset button
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i><span>Book My Free Trial Session</span>';
+    if (result.result === 'success') {
+      successMessage.classList.remove('hidden');
+      form.reset();
+      setTimeout(() => {
+        successMessage.classList.add('hidden');
+      }, 5000);
+      successMessage.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert("Error: " + result.message);
     }
-  });
+  } catch (error) {
+    alert("Error submitting form. Please try again.");
+    console.error("Submission error:", error);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i><span>Book My Free Trial Session</span>';
+  }
+});
 </script>
+
 
 </body>
 </html>
