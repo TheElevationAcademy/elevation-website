@@ -1007,9 +1007,7 @@
       } else {
         alert("Error: " + result.message);
       }
-    } catch (error) {
-      alert("Error submitting form. Please try again.");
-      console.error("Error!", error.message);
+    } 
     } finally {
       // Reset button
       submitBtn.disabled = false;
@@ -1017,11 +1015,6 @@
     }
   });
 </script>
-
-
-
-
-
 
 </body>
 </html>
