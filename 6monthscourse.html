@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <title>Enroll in 6-Month Fusion Course | Elevation Academy</title>
   <style>
     /* Reuse your existing styles and add these new ones */
@@ -612,76 +613,74 @@
       </div>
     </section>
 
-    <section class="bg-black text-white py-16 px-4 md:px-12" id="faq">
-  <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
-
-  <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+    <section class="bg-neutral-950 text-white py-16 px-4 md:px-10">
+  <h2 class="text-4xl font-bold text-center mb-10 text-red-500">Frequently Asked Questions</h2>
+  <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
 
     <!-- FAQ Item -->
-    <div class="faq-item bg-zinc-900 rounded-md p-6 transition duration-300">
-      <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+    <div class="bg-neutral-800 rounded-lg p-6">
+      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
         <span>What are the class timings? How much time is required per week?</span>
-        <span class="icon text-xl">+</span>
+        <span class="text-2xl">+</span>
       </button>
-      <div class="faq-answer mt-4 text-sm text-zinc-300 hidden">
-        We offer a variety of batches over weekdays & weekends. For 1-on-1 classes, timings are fully flexible. Each live session lasts about 45 minutes, along with short practice videos.
+      <div class="faq-answer mt-4 text-zinc-300 hidden">
+        We offer batches over weekdays & weekends. 1-on-1 sessions are flexible. Each live session is 45 mins, plus short practice videos.
       </div>
     </div>
 
-    <div class="faq-item bg-zinc-900 rounded-md p-6 transition duration-300">
-      <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+    <div class="bg-neutral-800 rounded-lg p-6">
+      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
         <span>Will I get a certificate on completion of the course?</span>
-        <span class="icon text-xl">+</span>
+        <span class="text-2xl">+</span>
       </button>
-      <div class="faq-answer mt-4 text-sm text-zinc-300 hidden">
-        Yes, upon successful completion, you’ll receive a digital certificate recognizing your progress and training.
+      <div class="faq-answer mt-4 text-zinc-300 hidden">
+        Yes, you'll receive a certificate digitally after course completion.
       </div>
     </div>
 
-    <div class="faq-item bg-zinc-900 rounded-md p-6 transition duration-300">
-      <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+    <div class="bg-neutral-800 rounded-lg p-6">
+      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
         <span>I’m a complete beginner. Will I be able to learn online?</span>
-        <span class="icon text-xl">+</span>
+        <span class="text-2xl">+</span>
       </button>
-      <div class="faq-answer mt-4 text-sm text-zinc-300 hidden">
-        Absolutely! Our programs are designed for all levels, including complete beginners. We’ll start from the very basics.
+      <div class="faq-answer mt-4 text-zinc-300 hidden">
+        Yes, our courses are designed for all levels — including beginners.
       </div>
     </div>
 
-    <div class="faq-item bg-zinc-900 rounded-md p-6 transition duration-300">
-      <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+    <div class="bg-neutral-800 rounded-lg p-6">
+      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
         <span>Do I need any equipment / musical instrument before enrolling?</span>
-        <span class="icon text-xl">+</span>
+        <span class="text-2xl">+</span>
       </button>
-      <div class="faq-answer mt-4 text-sm text-zinc-300 hidden">
-        No, you don’t need any instruments to get started. A quiet space, good internet, and headphones are sufficient.
+      <div class="faq-answer mt-4 text-zinc-300 hidden">
+        No, just a quiet space, internet, and headphones are enough to begin.
       </div>
     </div>
 
-    <div class="faq-item bg-zinc-900 rounded-md p-6 transition duration-300">
-      <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+    <div class="bg-neutral-800 rounded-lg p-6">
+      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
         <span>Do I also get videos with LIVE class?</span>
-        <span class="icon text-xl">+</span>
+        <span class="text-2xl">+</span>
       </button>
-      <div class="faq-answer mt-4 text-sm text-zinc-300 hidden">
-        Yes. Every student receives recorded practice videos along with the live sessions for revision and daily riyaaz.
+      <div class="faq-answer mt-4 text-zinc-300 hidden">
+        Yes! You'll receive short videos for daily riyaaz alongside your live sessions.
       </div>
     </div>
 
-    <div class="faq-item bg-zinc-900 rounded-md p-6 transition duration-300">
-      <button class="faq-question flex justify-between items-center w-full text-left font-semibold text-lg">
+    <div class="bg-neutral-800 rounded-lg p-6">
+      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
         <span>What Gharana / Style of Singing do you teach?</span>
-        <span class="icon text-xl">+</span>
+        <span class="text-2xl">+</span>
       </button>
-      <div class="faq-answer mt-4 text-sm text-zinc-300 hidden">
-        Our base is rooted in Hindustani Classical (Gwalior/Kirana Gharana) fused with Bollywood and semi-classical styles like Thumri & Ghazal.
+      <div class="faq-answer mt-4 text-zinc-300 hidden">
+        We focus on Hindustani Classical (Gwalior/Kirana) fused with Bollywood, Thumri, and Ghazal styles.
       </div>
     </div>
-
-    <!-- Add more FAQs if needed -->
 
   </div>
 </section>
+
 
     
     <section class="whatsapp-cta">
@@ -756,17 +755,20 @@
     <p>&copy; 2025 The Elevation Academy. All rights reserved.</p>
     <p><a href="privacy policy.html">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
   </footer>
-
- <script>
-  document.querySelectorAll('.faq-question').forEach(button => {
+  
+<script>
+  document.querySelectorAll('.faq-toggle').forEach(button => {
     button.addEventListener('click', () => {
       const answer = button.nextElementSibling;
-      const icon = button.querySelector('.icon');
+      const icon = button.querySelector('span:last-child');
 
       const isOpen = !answer.classList.contains('hidden');
-      document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
-      document.querySelectorAll('.faq-question .icon').forEach(i => i.textContent = '+');
 
+      // Close all
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+      document.querySelectorAll('.faq-toggle span:last-child').forEach(i => i.textContent = '+');
+
+      // Open selected
       if (!isOpen) {
         answer.classList.remove('hidden');
         icon.textContent = '−';
@@ -774,6 +776,7 @@
     });
   });
 </script>
+
 
 
 </body>
