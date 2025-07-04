@@ -469,6 +469,21 @@
   .faq-item[open] summary svg {
     transform: rotate(180deg);
   }
+    @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
 
   </style>
 </head>
@@ -507,12 +522,45 @@
    
 
 
-    <section id="about" class="container">
-      <h2>About the Academy</h2>
-    <center>
-      <p>Elevation Academy is an online vocal training space built exclusively for adult learners who are passionate about singing but may have never had the chance to explore their voice fully. Whether you're a beginner or someone who sings casually, we help you grow with the right blend of personalized attention, Indian classical fundamentals, and modern music techniques.</p>
-      <p><strong><em>We don't just teach you what to sing – we help you discover how to sing, with confidence and clarity.</em></strong></p></center>
-    </section>
+    <section class="bg-[#0f0f0f] py-16 px-6 md:px-20 text-neutral-200 font-sans">
+  <h2 class="text-3xl md:text-4xl font-bold text-center text-[#aa2200] mb-12">Meet the Co-Founders</h2>
+
+  <!-- Karishma Section -->
+  <div class="flex flex-col md:flex-row items-center justify-between gap-10 mb-16">
+    <div class="w-full md:w-1/2">
+      <img src="karishma.jpeg" alt="Karishma Tamane" class="rounded-lg w-full max-w-sm mx-auto object-cover shadow-xl opacity-0 transform translate-y-10 transition-opacity duration-1000 ease-out delay-100" onload="this.classList.remove('opacity-0','translate-y-10')" />
+    </div>
+    <div class="w-full md:w-1/2">
+      <h3 class="text-2xl font-semibold text-[#e67e22] mb-2">Karishma Tamane</h3>
+      <p class="italic text-sm mb-4 text-[#e0e0e0]">Vocal Coach & Creative Strategist</p>
+      <p class="text-neutral-300 leading-relaxed">
+        Karishma is a passionate vocalist, teacher, and creative entrepreneur with years of experience in Hindustani classical music and contemporary singing.
+        Her teaching blends performance insight with innovative online learning systems, guiding hundreds of students globally. 
+        As co-founder, she leads curriculum development, student engagement, and creative direction.
+      </p>
+    </div>
+  </div>
+
+  <!-- Koushik Section -->
+  <div class="flex flex-col md:flex-row-reverse items-center justify-between gap-10">
+    <div class="w-full md:w-1/2">
+      <img src="koushik.jpeg" alt="Koushik Mukherjee" class="rounded-lg w-full max-w-sm mx-auto object-cover shadow-xl opacity-0 transform translate-y-10 transition-opacity duration-1000 ease-out delay-100" onload="this.classList.remove('opacity-0','translate-y-10')" />
+    </div>
+    <div class="w-full md:w-1/2">
+      <h3 class="text-2xl font-semibold text-[#e67e22] mb-2">Koushik Mukherjee</h3>
+      <p class="italic text-sm mb-4 text-[#e0e0e0]">Music Producer & Technical Head</p>
+      <p class="text-neutral-300 leading-relaxed">
+        Koushik is a versatile music producer, sound engineer, and multi-instrumentalist. His work spans audio production, mixing, and mentoring students in recording and original creation.
+        As co-founder, he handles digital infrastructure, student production support, and ensures professional-level audio outcomes across all learning journeys.
+      </p>
+    </div>
+  </div>
+
+  <!-- Tagline -->
+  <div class="mt-12 text-center text-neutral-400 italic text-lg">
+    Together, Karishma and Koushik are building a space where learning music is joyful, structured, and deeply personal.
+  </div>
+</section>
 
 <section>
 </section>
