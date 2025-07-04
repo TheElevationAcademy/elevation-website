@@ -829,7 +829,7 @@
         <i class="fas fa-check-circle text-amber-700 mr-2 text-xl"></i>
         <div>
           <h3 class="font-bold">Booking Confirmed!</h3>
-          <p>Thank you for booking your free trial session. We've sent the details to your email.</p>
+          <p>Thank you for booking your free trial session.</p>
         </div>
       </div>
     </div>
@@ -994,17 +994,14 @@ form.reset();
 setTimeout(() => successMessage.classList.add('hidden'), 5000);
 successMessage.scrollIntoView({ behavior: 'smooth' });
 
-// Send WhatsApp message
+// ✅ Send WhatsApp message with form data
 const name = data.name || "";
-const city = data.city || "";
 const timeSlot = data.timeSlot || "";
-const message = `Hi ${name}, thank you for booking your free trial session with The Elevation Academy. Your session is confirmed for: ${timeSlot} in ${city}. We look forward to seeing you!`;
-const encodedMessage = encodeURIComponent(message);
-const whatsappLink = `https://wa.me/919266213394?text=${encodedMessage}`;
+const city = data.city || "";
+const message = `Hi , My name is ${name}, I have booked a trial  with The Elevation Academy. I have selected the time ${timeSlot} from ${city}. Thank you`;
+const whatsappNumber = "919266213394"; // YOUR WhatsApp number with country code
+const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 window.open(whatsappLink, "_blank");
-
-
-}
 
 .catch((error) => {
   alert("Error submitting form. Please try again.");
