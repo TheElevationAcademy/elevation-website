@@ -484,6 +484,20 @@
   animation: fadeInUp 1s ease-out forwards;
 }
 
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(170, 34, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px 5px rgba(170, 34, 0, 0.6);
+  }
+}
+
+.animate-pulse {
+  animation: pulseGlow 2s infinite;
+}
+
+
 
   </style>
 </head>
@@ -1082,6 +1096,10 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
        alt="WhatsApp" 
        class="w-14 h-14 md:w-16 md:h-16 rounded-full drop-shadow-lg hover:scale-110 transition-transform duration-300 ease-in-out">
+</a>
+<a href="https://theelevationacademy.in/bookatrial.html" target="_blank"
+   class="fixed bottom-6 left-6 z-50 bg-[#aa2200] text-[#fff9f5] hover:bg-[#882000] hover:text-white px-6 py-3 rounded-full shadow-lg text-base font-semibold transition-all duration-300 ease-in-out animate-pulse md:w-auto w-[90%] text-center">
+  🎶 Book a Free Trial
 </a>
 
 
