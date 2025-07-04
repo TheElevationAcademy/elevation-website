@@ -6,6 +6,8 @@
 <meta name="keywords" content="Elevation Academy, online learning, tutorials, education, theelevationacademy.com">
 <meta name="robots" content="index, follow">
 <meta name="author" content="The Elevation Academy">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
 
   <meta charset="UTF-8" />
 <meta name="description" content="The Elevation Academy – Learn, Grow, and Elevate your skills through hands-on tutorials and resources.">
@@ -28,7 +30,7 @@
       --text: #333;
       --text-light: #777;
     }
-    
+     <script src="https://cdn.tailwindcss.com"></script>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; color:var(--text); background-color:var(--light-bg); }
@@ -448,6 +450,26 @@
       
       .feature, .plan, .blog-article { padding:1.5rem; }
     }
+    .faq-item summary {
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .faq-item summary:hover,
+  .faq-item[open] summary {
+    color: var(--primary);
+  }
+
+  .faq-item summary svg {
+    fill: var(--primary);
+    transition: transform 0.3s;
+  }
+
+  .faq-item[open] summary svg {
+    transform: rotate(180deg);
+  }
+
   </style>
 </head>
 <body>
@@ -608,6 +630,125 @@
       </div>
     </section>
 <section>
+
+   <section class="bg-[var(--light-bg)] py-12 px-4 md:px-8 lg:px-16">
+  <h2 class="text-center text-[2rem] font-serif font-bold text-[var(--primary)] mb-10">Frequently Asked Questions</h2>
+
+  <div class="max-w-4xl mx-auto space-y-4">
+
+    <!-- Question 1 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>What are the class timings? How much time is required per week?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        We offer flexible batch timings. You’ll have 1 live session per week and daily guided practice material.
+      </div>
+    </details>
+
+    <!-- Question 2 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>I’m a complete beginner. Will I be able to learn online?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        Absolutely! Our step-by-step teaching approach is perfect for beginners.
+      </div>
+    </details>
+
+    <!-- Question 3 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>What style of music do you teach?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        Hindustani Classical, Bollywood, Semi-Classical, and Ghazals with a contemporary touch.
+      </div>
+    </details>
+
+    <!-- Question 4 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>Do I get practice material or recordings after class?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        Yes! Each session comes with a recording and customized riyaaz assignments.
+      </div>
+    </details>
+
+    <!-- Question 5 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>Will I get a certificate after the course?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        Yes, we provide a digital certificate on successful course completion.
+      </div>
+    </details>
+
+    <!-- Question 6 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>What is included in the free trial session?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        The trial includes a one-on-one vocal assessment, introduction to our curriculum, and live guidance from our team.
+      </div>
+    </details>
+
+    <!-- Question 7 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>Are the sessions live or recorded?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        All sessions are live and interactive. Recordings are provided afterward for practice.
+      </div>
+    </details>
+
+    <!-- Question 8 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>Can I get personal attention or feedback?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        Yes, we provide personalized feedback in every session to help you improve faster.
+      </div>
+    </details>
+
+    <!-- Question 9 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>What if I miss a session?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        You’ll get access to the recording and support material so you can catch up easily.
+      </div>
+    </details>
+
+    <!-- Question 10 -->
+    <details class="group bg-white rounded-xl shadow-sm p-6 ring-1 ring-gray-200 transition-all">
+      <summary class="flex justify-between items-center cursor-pointer font-serif text-lg text-gray-800">
+        <span>Can I get a professional recording of my singing?</span>
+        <span class="text-[var(--primary)] text-xl group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="mt-4 text-center text-gray-700 font-serif leading-relaxed">
+        Yes! We offer free recordings as part of our 3/6/12-month programs and guide you through the process.
+      </div>
+    </details>
+
+  </div>
+</section>
+  
 </section>
     <section id="blog" class="container">
       <h2>From Our Blog</h2>
