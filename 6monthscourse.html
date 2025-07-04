@@ -16,6 +16,7 @@
       --text: #333;
       --text-light: #777;
     }
+    <script src="https://cdn.tailwindcss.com"></script>
     
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
@@ -558,6 +559,28 @@
         padding: 2rem 1rem;
       }
     }
+ 
+  .faq-item summary {
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .faq-item summary:hover,
+  .faq-item[open] summary {
+    color: var(--primary);
+  }
+
+  .faq-item summary svg {
+    fill: var(--primary);
+    transition: transform 0.3s;
+  }
+
+  .faq-item[open] summary svg {
+    transform: rotate(180deg);
+  }
+
+
   </style>
 </head>
 <body>
@@ -613,73 +636,77 @@
       </div>
     </section>
 
-    <section class="bg-neutral-950 text-white py-16 px-4 md:px-10">
-  <h2 class="text-4xl font-bold text-center mb-10 text-red-500">Frequently Asked Questions</h2>
-  <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+  <!-- Add this inside your <body> -->
+<section class="max-w-3xl mx-auto px-6 py-10">
+  <h2 class="text-3xl font-bold text-center text-[#aa2200] mb-8">Frequently Asked Questions</h2>
+
+  <div class="space-y-4">
 
     <!-- FAQ Item -->
-    <div class="text-gray-900">
-      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
-        <span>What are the class timings? How much time is required per week?</span>
-        <span class="text-2xl">+</span>
-      </button>
-      <div class="faq-answer mt-4 text-zinc-300 hidden">
-        We offer batches over weekdays & weekends. 1-on-1 sessions are flexible. Each live session is 45 mins, plus short practice videos.
-      </div>
-    </div>
+    <details class="group border-b border-gray-200 py-4">
+      <summary class="flex justify-between items-center cursor-pointer text-lg font-medium text-gray-900 hover:text-[#aa2200]">
+        What is The Elevation Academy?
+        <svg class="w-5 h-5 text-[#aa2200] transform transition-transform group-open:rotate-180" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.294l3.71-4.064a.75.75 0 111.1 1.02l-4.25 4.667a.75.75 0 01-1.1 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <p class="mt-2 text-gray-700">
+        The Elevation Academy is a personalized music training platform offering vocal coaching, recordings, and flexible learning.
+      </p>
+    </details>
 
-    <div class="bg-neutral-800 rounded-lg p-6">
-      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
-        <span>Will I get a certificate on completion of the course?</span>
-        <span class="text-2xl">+</span>
-      </button>
-      <div class="faq-answer mt-4 text-zinc-300 hidden">
-        Yes, you'll receive a certificate digitally after course completion.
-      </div>
-    </div>
+    <!-- More FAQ Items -->
+    <details class="group border-b border-gray-200 py-4">
+      <summary class="flex justify-between items-center cursor-pointer text-lg font-medium text-gray-900 hover:text-[#aa2200]">
+        Who can join the courses?
+        <svg class="w-5 h-5 text-[#aa2200] transform transition-transform group-open:rotate-180" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.294l3.71-4.064a.75.75 0 111.1 1.02l-4.25 4.667a.75.75 0 01-1.1 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <p class="mt-2 text-gray-700">
+        Anyone passionate about music — from beginners to trained singers — can join and benefit from our courses.
+      </p>
+    </details>
 
-    <div class="bg-neutral-800 rounded-lg p-6">
-      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
-        <span>I’m a complete beginner. Will I be able to learn online?</span>
-        <span class="text-2xl">+</span>
-      </button>
-      <div class="faq-answer mt-4 text-zinc-300 hidden">
-        Yes, our courses are designed for all levels — including beginners.
-      </div>
-    </div>
+    <details class="group border-b border-gray-200 py-4">
+      <summary class="flex justify-between items-center cursor-pointer text-lg font-medium text-gray-900 hover:text-[#aa2200]">
+        What genres are taught?
+        <svg class="w-5 h-5 text-[#aa2200] transform transition-transform group-open:rotate-180" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.294l3.71-4.064a.75.75 0 111.1 1.02l-4.25 4.667a.75.75 0 01-1.1 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <p class="mt-2 text-gray-700">
+        We specialize in Hindustani Classical, Bollywood, Semi-Classical (Thumri, Dadra, Ghazal), and fusion training.
+      </p>
+    </details>
 
-    <div class="bg-neutral-800 rounded-lg p-6">
-      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
-        <span>Do I need any equipment / musical instrument before enrolling?</span>
-        <span class="text-2xl">+</span>
-      </button>
-      <div class="faq-answer mt-4 text-zinc-300 hidden">
-        No, just a quiet space, internet, and headphones are enough to begin.
-      </div>
-    </div>
+    <details class="group border-b border-gray-200 py-4">
+      <summary class="flex justify-between items-center cursor-pointer text-lg font-medium text-gray-900 hover:text-[#aa2200]">
+        Are the sessions live or recorded?
+        <svg class="w-5 h-5 text-[#aa2200] transform transition-transform group-open:rotate-180" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.294l3.71-4.064a.75.75 0 111.1 1.02l-4.25 4.667a.75.75 0 01-1.1 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <p class="mt-2 text-gray-700">
+        All sessions are one-on-one live, with access to recorded lessons afterward for review.
+      </p>
+    </details>
 
-    <div class="bg-neutral-800 rounded-lg p-6">
-      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
-        <span>Do I also get videos with LIVE class?</span>
-        <span class="text-2xl">+</span>
-      </button>
-      <div class="faq-answer mt-4 text-zinc-300 hidden">
-        Yes! You'll receive short videos for daily riyaaz alongside your live sessions.
-      </div>
-    </div>
-
-    <div class="bg-neutral-800 rounded-lg p-6">
-      <button class="flex justify-between items-center w-full text-left text-lg font-semibold faq-toggle">
-        <span>What Gharana / Style of Singing do you teach?</span>
-        <span class="text-2xl">+</span>
-      </button>
-      <div class="faq-answer mt-4 text-zinc-300 hidden">
-        We focus on Hindustani Classical (Gwalior/Kirana) fused with Bollywood, Thumri, and Ghazal styles.
-      </div>
-    </div>
+    <details class="group border-b border-gray-200 py-4">
+      <summary class="flex justify-between items-center cursor-pointer text-lg font-medium text-gray-900 hover:text-[#aa2200]">
+        Can I record a professional song?
+        <svg class="w-5 h-5 text-[#aa2200] transform transition-transform group-open:rotate-180" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.294l3.71-4.064a.75.75 0 111.1 1.02l-4.25 4.667a.75.75 0 01-1.1 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <p class="mt-2 text-gray-700">
+        Yes! Each course includes free studio-style recordings of songs of your choice, professionally mixed and shared.
+      </p>
+    </details>
 
   </div>
 </section>
+
 
 
     
