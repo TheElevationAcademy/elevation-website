@@ -5,6 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indian Classical Music Portal - Quick Access</title>
     <style>
+header { 
+      position: sticky; top:0; 
+      background: rgba(255,255,255,0.97); 
+      backdrop-filter: blur(5px);
+      box-shadow:0 2px 6px rgba(0,0,0,0.1); 
+      z-index: 2000; 
+    }
+    .menu { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      padding:1rem 0; 
+    }
+    .logo { 
+      height: 60px; 
+      width: auto; 
+      max-width: 200px; 
+      object-fit:contain; 
+    }
+    .menu nav { display:flex; gap:1.5rem; }
+    .menu nav a { 
+      font-weight:500; 
+      position:relative;
+      padding:0.5rem 0;
+    }
+    .menu nav a::after {
+      content: ''; 
+      position:absolute; 
+      width:0; 
+      height:2px; 
+      background:var(--primary);
+      bottom:0; 
+      left:0; 
+      transition: width 0.3s ease;
+    }
+    .menu nav a:hover::after,
+    .menu nav a:focus::after { width: 100%; }
+
         :root {
             --primary: #8e44ad;
             --secondary: #3498db;
