@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riyaz Reminders - The Elevation Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --whatsapp-green: #25D366;
+            --whatsapp-dark-green: #128C7E;
+            --whatsapp-teal-green: #075E54;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #777777;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-gray);
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .whatsapp-reminder-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .whatsapp-reminder-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .whatsapp-reminder-header h2 {
+            color: var(--whatsapp-teal-green);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .whatsapp-reminder-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .whatsapp-reminder-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--whatsapp-green);
+            max-width: 600px;
+        }
+        
+        .reminder-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 280px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 3px solid var(--whatsapp-green);
+        }
+        
+        .step-number {
+            background: var(--whatsapp-teal-green);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .step-card h3 {
+            color: var(--whatsapp-teal-green);
+            margin-bottom: 0.8rem;
+        }
+        
+        #whatsappReminderForm {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            color: var(--whatsapp-teal-green);
+        }
+        
+        #whatsappNumber,
+        #studentName,
+        #reminderTime {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        #whatsappNumber:focus,
+        #studentName:focus,
+        #reminderTime:focus {
+            border-color: var(--whatsapp-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+        }
+        
+        #whatsappNumber {
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .submit-btn {
+            background: var(--whatsapp-green);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: var(--whatsapp-dark-green);
+            transform: translateY(-2px);
+        }
+        
+        .privacy-note {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .example-number {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+        
+        @media (max-width: 600px) {
+            .whatsapp-reminder-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .whatsapp-reminder-box {
+                padding: 1.5rem;
+            }
+            
+            .step-card {
+                width: 100%;
+            }
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .submit-btn:active {
+            animation: pulse 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="whatsapp-reminder-container">
+        <div class="whatsapp-reminder-header">
+            <h2>
+                <i class="fab fa-whatsapp"></i> WhatsApp Riyaz Reminders
+            </h2>
+            <p>Get personalized practice reminders directly on WhatsApp to stay consistent with your Indian classical music journey</p>
+        </div>
+        
+        <div class="reminder-steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Subscribe</h3>
+                <p>Fill the form with your WhatsApp number and preferred practice time</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Confirm</h3>
+                <p>Check WhatsApp for our confirmation message and reply "START"</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Practice</h3>
+                <p>Receive daily reminders at your chosen time to practice</p>
+            </div>
+        </div>
+        
+        <div class="whatsapp-reminder-box">
+            <form id="whatsappReminderForm">
+                <div class="form-group">
+                    <label for="studentName">Your Name</label>
+                    <input type="text" id="studentName" placeholder="e.g. Ravi Shankar" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="whatsappNumber">WhatsApp Number</label>
+                    <input type="tel" id="whatsappNumber" placeholder="e.g. 919876543210" required>
+                    <div class="example-number">Include country code (e.g. 91 for India)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reminderTime">Preferred Reminder Time</label>
+                    <select id="reminderTime" required>
+                        <option value="">Select your practice time</option>
+                        <option value="07:00">Morning - 7 AM</option>
+                        <option value="08:00">Morning - 8 AM</option>
+                        <option value="09:00">Morning - 9 AM</option>
+                        <option value="17:00">Evening - 5 PM</option>
+                        <option value="18:00">Evening - 6 PM</option>
+                        <option value="19:00">Evening - 7 PM</option>
+                        <option value="20:00">Night - 8 PM</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fab fa-whatsapp"></i> Get WhatsApp Reminders
+                </button>
+                
+                <div class="privacy-note">
+                    By subscribing, you agree to receive WhatsApp messages from The Elevation Academy. 
+                    Standard messaging rates may apply. Reply STOP to unsubscribe at any time.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('whatsappReminderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('studentName').value.trim();
+            let phone = document.getElementById('whatsappNumber').value.trim();
+            const time = document.getElementById('reminderTime').value;
+            
+            // Validate inputs
+            if (!name || !phone || !time) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            // Clean phone number (remove spaces, dashes, etc.)
+            phone = phone.replace(/\D/g, '');
+            
+            if (phone.length < 10) {
+                alert('Please enter a valid WhatsApp number with country code');
+                return;
+            }
+            
+            // Create WhatsApp message
+            const message = `Namaste ${name}!%0A%0A` +
+                           `Thank you for subscribing to The Elevation Academy Riyaz Reminders!%0A%0A` +
+                           `You'll receive daily practice reminders at ${time}.%0A%0A` +
+                           `To confirm your subscription, please reply "START".%0A` +
+                           `Reply STOP to unsubscribe anytime.%0A%0A` +
+                           `- The Elevation Academy Team`;
+            
+            // Open WhatsApp chat
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+            
+            // Save to localStorage (optional)
+            const reminders = JSON.parse(localStorage.getItem('whatsappReminders') || '[]');
+            reminders.push({ name, phone, time, date: new Date().toISOString() });
+            localStorage.setItem('whatsappReminders', JSON.stringify(reminders));
+            
+            // Show confirmation
+            alert(`Please check WhatsApp to complete your subscription! We've sent a message to +${phone}`);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Format phone number as user types
+        document.getElementById('whatsappNumber').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                value = '+' + value;
+            }
+            this.value = value;
+        });
+    </script>
+</body>
+</html>
