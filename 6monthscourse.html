@@ -3,49 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daily Riyaz Tips</title>
+  <title>Riyaz Audio Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body { font-family: serif; }
-  </style>
 </head>
-<body class="bg-yellow-50 min-h-screen flex items-center justify-center">
-  <div class="bg-white rounded-2xl shadow-lg p-6 max-w-md w-full text-center">
-    <h1 class="text-2xl font-bold mb-2">🌅 Good Morning</h1>
-    <h2 id="dayLabel" class="text-lg font-semibold text-pink-600"></h2>
-    <p id="tipText" class="mt-4 text-gray-700"></p>
-    <p id="quote" class="mt-4 italic text-amber-700"></p>
-    <p id="streak" class="mt-6 font-semibold text-green-600"></p>
-  </div>
+<body class="bg-amber-50 text-gray-800 font-serif">
+  <header class="bg-white shadow p-4 text-center text-2xl font-bold text-pink-700">
+    🎵 Riyaz Audio Portal
+  </header>
 
-  <script>
-    const tips = [
-      { tip: "Practice Aakar in Raag Yaman – slow tempo, 5 mins.", quote: "Riyaz is Sadhana." },
-      { tip: "Sargam in Raag Bhairav – 7 mins.", quote: "Your voice is your instrument." },
-      { tip: "Alankar 1 & 2 with Tanpura.", quote: "Daily effort creates magic." },
-      { tip: "Slow Meend between Sa and Pa.", quote: "Precision is power." },
-      { tip: "Raag Bhopali – Chota Khayal.", quote: "Raag is emotion in sound." },
-      { tip: "Aakar + Sargam – mix up for 10 mins.", quote: "Consistency over perfection." },
-      { tip: "Practice Taal with claps – Teentaal.", quote: "Rhythm is discipline." },
-    ];
+  <main class="p-6 space-y-10 max-w-4xl mx-auto">
+    <!-- Raag Yaman Section -->
+    <section>
+      <h2 class="text-xl font-semibold text-pink-600 mb-4">Raag Yaman</h2>
 
-    const today = new Date().toDateString();
-    const lastViewed = localStorage.getItem("riyaz_last_day");
-    let streak = parseInt(localStorage.getItem("riyaz_streak")) || 0;
-    let currentIndex = parseInt(localStorage.getItem("riyaz_day_index")) || 0;
+      <div class="mb-6">
+        <h3 class="font-medium text-lg">Tanpura – Slow Tempo</h3>
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe class="w-full h-60" src="https://www.youtube.com/embed/JyRPu4MaRvg" title="Tanpura Yaman" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
 
-    if (lastViewed !== today) {
-      localStorage.setItem("riyaz_last_day", today);
-      currentIndex = (currentIndex + 1) % tips.length;
-      localStorage.setItem("riyaz_day_index", currentIndex);
-      streak++;
-      localStorage.setItem("riyaz_streak", streak);
-    }
+      <div class="mb-6">
+        <h3 class="font-medium text-lg">Tabla – Teentaal (Vilambit)</h3>
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe class="w-full h-60" src="https://www.youtube.com/embed/hhqcC3a5wQE" title="Tabla Yaman" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
 
-    document.getElementById("dayLabel").innerText = `Day ${currentIndex + 1}`;
-    document.getElementById("tipText").innerText = tips[currentIndex].tip;
-    document.getElementById("quote").innerText = `“${tips[currentIndex].quote}”`;
-    document.getElementById("streak").innerText = `🔥 ${streak}-Day Streak!`;
-  </script>
+    <!-- Raag Bhairav Section -->
+    <section>
+      <h2 class="text-xl font-semibold text-pink-600 mb-4">Raag Bhairav</h2>
+
+      <div class="mb-6">
+        <h3 class="font-medium text-lg">Tanpura – Medium Tempo</h3>
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe class="w-full h-60" src="https://www.youtube.com/embed/JyRPu4MaRvg" title="Tanpura Bhairav" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="font-medium text-lg">Tabla – Teentaal (Madhya)</h3>
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe class="w-full h-60" src="https://www.youtube.com/embed/JyRPu4MaRvg" title="Tabla Bhairav" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 p-4">
+    © 2025 The Elevation Academy · All rights reserved
+  </footer>
 </body>
 </html>
