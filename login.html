@@ -177,25 +177,38 @@
             </div>
         </form>
     </div>
+<script>
+    // Replace the script in login.html with:
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            // Simple check - in real app, this would connect to your backend
-            if(email && password) {
-                // Check if admin email (you can change this)
-                if(email.includes('admin')) {
-                    window.location.href = 'admin-dashboard.html';
-                } else {
-                    window.location.href = 'student-dashboard.html';
-                }
-            } else {
-                alert('Please enter both email and password');
-            }
-        });
+  try {
+    const response = await fetch('http://localhost:5000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+    
+    if (response.ok) {
+      localStorage.setItem('token', data.token);
+      
+      if (data.role === 'admin') {
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        window.location.href = 'student-dashboard.html';
+      }
+    } else {
+      alert(data.error || 'Login failed');
+    }
+  } catch (error) {
+    alert('Network error. Please try again.');
+  }
+});
     </script>
 </body>
 </html>
