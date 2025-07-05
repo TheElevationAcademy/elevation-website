@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Classical Music Portal - Quick Access</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Classical Music Riyaz Portal - Quick Access</title>
     <style>
 
       :root {
@@ -912,6 +913,74 @@
     padding: 0 2px;
     border-radius: 3px;
 }
+        @media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .video-card {
+        margin-bottom: 1rem;
+    }
+}
+        @media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .video-card {
+        margin-bottom: 1rem;
+    }
+}
+        @media (max-width: 768px) {
+    .access-buttons {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .access-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        flex-shrink: 0;
+    }
+}
+        @media (max-width: 600px) {
+    .search-container {
+        flex-direction: column;
+    }
+    
+    #searchInput, .search-container button {
+        width: 100%;
+    }
+}
+        @media (max-width: 768px) {
+    .scroll-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+        @media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    .video-title {
+        font-size: 1.1rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -1547,6 +1616,16 @@ document.getElementById('searchInput').addEventListener('keypress', function(e) 
         searchVideos();
     }
 });
+        /* Make buttons more touch-friendly */
+button, .speed-btn, .access-btn {
+    min-height: 44px; /* Recommended minimum touch target size */
+    padding: 12px 16px;
+}
+
+/* Improve video player touch experience */
+.video-container {
+    touch-action: manipulation;
+}
     </script>
   <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
 
