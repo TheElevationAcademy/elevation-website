@@ -1,1059 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Portal | Elevation Academy</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
- /* RESET & BASE */
-    :root {
-      --primary: #aa2200;
-      --primary-dark: #882000;
-      --secondary: #e67e22;
-      --light-bg: #fff9f5;
-      --text: #333;
-      --text-light: #777;
-    }
-    
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; color:var(--text); background-color:var(--light-bg); }
-    
-    /* ACCESSIBILITY */
-    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-
-    /* TYPOGRAPHY */
-    h1, h2, h3 { line-height:1.2; font-weight:600; }
-    a { text-decoration:none; color:var(--primary); transition: color 0.2s; }
-    a:hover { color:var(--primary-dark); }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
-
-    /* HEADER */
-    header { 
-      position: sticky; top:0; 
-      background: rgba(255,255,255,0.97); 
-      backdrop-filter: blur(5px);
-      box-shadow:0 2px 6px rgba(0,0,0,0.1); 
-      z-index: 1000; 
-    }
-    .menu { 
-      display:flex; 
-      align-items:center; 
-      justify-content:space-between; 
-      padding:1rem 0; 
-    }
-    .logo { 
-      height: 60px; 
-      width: auto; 
-      max-width: 200px; 
-      object-fit:contain; 
-    }
-    .menu nav { display:flex; gap:1.5rem; }
-    .menu nav a { 
-      font-weight:500; 
-      position:relative;
-      padding:0.5rem 0;
-    }
-    .menu nav a::after {
-      content: ''; 
-      position:absolute; 
-      width:0; 
-      height:2px; 
-      background:var(--primary);
-      bottom:0; 
-      left:0; 
-      transition: width 0.3s ease;
-    }
-    .menu nav a:hover::after,
-    .menu nav a:focus::after { width: 100%; }
-
-    /* SECTIONS */
-    section { padding: 4rem 0; }
-    section + section { border-top: 1px solid rgba(0,0,0,0.05); }
-    section h2 { 
-      text-align:center; 
-      color:var(--primary); 
-      font-size:2.4rem; 
-      margin-bottom:1.5rem;
-      position:relative;
-    }
-    section h2::after {
-      content: '';
-      display:block;
-      width:80px;
-      height:4px;
-      background:var(--primary);
-      margin:0.8rem auto;
-      border-radius:2px;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 85vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:2rem;
-      background:
-        linear-gradient(to bottom, rgba(255,236,210,0.8), rgba(252,182,159,0.8)),
-        url('background.png') center/cover no-repeat fixed;
-    }
-    .hero-content { max-width:800px; }
-    .hero h1 { 
-      font-size: clamp(2.4rem, 5vw, 3.2rem);
-      margin-bottom:1rem;
-      animation: fadeInUp 0.8s ease;
-    }
-    .hero p { 
-      font-size:1.2rem;
-      margin: 0 auto 2rem;
-      max-width:80%;
-      animation: fadeInUp 0.8s ease 0.2s both;
-    }
-    .cta-btn {
-      display: inline-block;
-      background:var(--primary); 
-      color:#fff; 
-      padding:0.8rem 2rem;
-      border:none; 
-      border-radius:6px; 
-      font-size:1.1rem; 
-      font-weight:500;
-      cursor:pointer;
-      box-shadow:0 4px 8px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      animation: fadeInUp 0.8s ease 0.4s both;
-    }
-    .cta-btn:hover, 
-    .cta-btn:focus { 
-      background:var(--primary-dark); 
-      transform: translateY(-2px); 
-      box-shadow:0 6px 12px rgba(0,0,0,0.25);
-    }
-
-    /* FEATURES */
-    .features {
-      display:grid; 
-      gap:1.8rem; 
-      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    }
-    .feature {
-      background:#fff; 
-      padding:1.8rem; 
-      border-radius:8px; 
-      border:1px solid #eee;
-      transition: all 0.3s ease;
-    }
-    .feature:hover {
-      transform: translateY(-5px);
-      box-shadow:0 8px 24px rgba(0,0,0,0.1);
-    }
-    .feature h3 { 
-      color:var(--secondary); 
-      margin-bottom:0.8rem; 
-      font-size:1.25rem;
-      display:flex;
-      align-items:center;
-      gap:0.5rem;
-    }
-    .feature h3::before {
-      content:'✓';
-      color:var(--primary);
-    }
-
-    /* FORM */
-    .form-container {
-      max-width:800px; 
-      margin:2rem auto;
-      padding:2.5rem; 
-      background:#fff; 
-      border:1px solid #eee; 
-      border-radius:12px;
-      box-shadow:0 4px 16px rgba(0,0,0,0.08);
-    }
-    .form-container iframe {
-      width:100%; 
-      min-height:700px; 
-      border:none; 
-      border-radius:4px;
-      loading:lazy;
-    }
-
-    /* TESTIMONIALS */
-    #testimonials {
-      background: 
-        linear-gradient(to top, rgba(255,255,255,0.96), rgba(255,255,255,0.96)),
-        url('tabla_sunset.png') center/cover no-repeat;
-    }
-    .testimonial { 
-      max-width:700px; 
-      background:#fff; 
-      margin:2rem auto; 
-      padding:2rem;
-      border-radius:12px; 
-      border:1px solid #eee; 
-      box-shadow:0 4px 16px rgba(0,0,0,0.08);
-      position:relative;
-    }
-    .testimonial::before {
-      content:'""';
-      position:absolute;
-      top:1rem;
-      left:1.5rem;
-      font-size:4rem;
-      color:rgba(170,34,0,0.1);
-      line-height:1;
-    }
-    .testimonial p { 
-      font-style:italic; 
-      margin-bottom:1.5rem;
-      font-size:1.1rem;
-      position:relative;
-      z-index:1;
-    }
-    .testimonial h4 { 
-      text-align:right; 
-      color:var(--text-light); 
-      font-weight:600;
-    }
-
-    /* PRICING */
-    .pricing {
-      display:grid; 
-      gap:2rem; 
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-    }
-    .plan {
-      background:#fff; 
-      padding:2.5rem 2rem; 
-      border-radius:12px; 
-      border:1px solid #eee;
-      text-align:center; 
-      transition: all 0.3s ease;
-      position:relative;
-      overflow:hidden;
-    }
-    .plan::after {
-      content:'';
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:4px;
-      background:var(--primary);
-    }
-    .plan:hover {
-      transform: translateY(-6px);
-      box-shadow:0 12px 24px rgba(0,0,0,0.1);
-    }
-    .plan h3 { 
-      font-size:1.4rem; 
-      color:var(--primary); 
-      margin-bottom:1rem;
-    }
-    .plan .price { 
-      font-size:2rem; 
-      margin:1rem 0; 
-      font-weight:700;
-      color:var(--primary);
-    }
-    .plan .price::before {
-      content:'₹';
-      font-size:1.2rem;
-      vertical-align:top;
-    }
-    .plan p { margin-bottom:1.5rem; }
-
-    /* VIDEOS */
-    .videos {
-      display:grid; 
-      gap:1.5rem; 
-      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-      justify-items:center;
-    }
-    .videos iframe {
-      width:100%; 
-      max-width:560px; 
-      aspect-ratio:16/9;
-      border:none; 
-      border-radius:12px; 
-      box-shadow:0 4px 16px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .videos iframe:hover {
-      transform: scale(1.02);
-    }
-
-    /* BLOG */
-    .blog {
-      display:grid; 
-      gap:2rem; 
-      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    }
-    .blog-article {
-      background:#fff; 
-      padding:1.8rem; 
-      border:1px solid #eee; 
-      border-radius:12px;
-      transition: all 0.3s ease;
-    }
-    .blog-article:hover {
-      transform: translateY(-4px);
-      box-shadow:0 8px 24px rgba(0,0,0,0.1);
-    }
-    .blog-article h3 { 
-      font-size:1.3rem; 
-      color:var(--primary); 
-      margin-bottom:0.8rem;
-    }
-    .blog-article .read-more {
-      display:inline-block;
-      margin-top:1rem;
-      font-weight:500;
-      color:var(--primary);
-    }
-
-    /* CONTACT */
-    .contact-info {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:1rem;
-      margin-top:1.5rem;
-    }
-    .contact-info a {
-      display:inline-flex;
-      align-items:center;
-      gap:0.5rem;
-      font-weight:500;
-      padding:0.5rem;
-    }
-    .contact-info a:hover {
-      text-decoration:underline;
-    }
-    .social-links {
-      display:flex;
-      gap:1rem;
-      margin-top:1rem;
-    }
-    .social-links a {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background:rgba(170,34,0,0.1);
-      transition: all 0.3s ease;
-    }
-    .social-links a:hover {
-      background:var(--primary);
-      color:white;
-      transform:translateY(-2px);
-    }
-
-    /* FOOTER */
-    footer {
-      text-align:center; 
-      padding:2rem 1rem;
-      font-size:0.9rem; 
-      color:var(--text-light);
-      border-top:1px solid rgba(0,0,0,0.05);
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeInUp {
-      from {
-        opacity:0;
-        transform:translateY(20px);
-      }
-      to {
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    /* MEDIA QUERIES */
-    @media(max-width:768px) {
-      .menu { flex-direction:column; gap:1rem; }
-      .menu nav { flex-wrap:wrap; justify-content:center; gap:1rem; }
-      
-      section { padding:3rem 0; }
-      section h2 { font-size:2rem; }
-      
-      .hero { min-height:75vh; }
-      .hero p { max-width:90%; }
-      
-      .form-container { padding:1.5rem; }
-    }
-
-    @media(max-width:480px) {
-      .hero h1 { font-size:2rem; }
-      .hero p { font-size:1rem; }
-      
-      .cta-btn { font-size:1rem; padding:0.7rem 1.5rem; }
-      
-      .feature, .plan, .blog-article { padding:1.5rem; }
-    }
-    :root {
-      --primary: #aa2200;
-      --primary-light: rgba(170,34,0,0.1);
-      --text: #333;
-      --light-bg: #fff9f5;
-      --success: #28a745;
-      --warning: #ffc107;
-      --danger: #dc3545;
-    }
-    
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background: var(--light-bg);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      margin: 0;
-    }
-    
-    header {
-      background: white;
-      padding: 1rem 0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    
-    .logo {
-      height: 60px;
-    }
-    
-    .auth-container {
-      max-width: 500px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
-    
-    .tabs {
-      display: flex;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .tab {
-      padding: 0.8rem 1.5rem;
-      cursor: pointer;
-      font-weight: 500;
-      color: #666;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s;
-    }
-    
-    .tab.active {
-      color: var(--primary);
-      border-bottom: 3px solid var(--primary);
-    }
-    
-    .tab-content {
-      display: none;
-    }
-    
-    .tab-content.active {
-      display: block;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    
-    input {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-    
-    input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(170,34,0,0.1);
-    }
-    
-    .password-container {
-      position: relative;
-    }
-    
-    .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #666;
-    }
-    
-    .btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    
-    .btn:hover {
-      background: #882000;
-      transform: translateY(-2px);
-    }
-    
-    .btn-google {
-      background: white;
-      color: var(--text);
-      border: 1px solid #ddd;
-    }
-    
-    .btn-google:hover {
-      background: #f8f8f8;
-    }
-    
-    .btn-facebook {
-      background: #1877f2;
-      color: white;
-    }
-    
-    .btn-facebook:hover {
-      background: #166fe5;
-    }
-    
-    .divider {
-      text-align: center;
-      margin: 1.5rem 0;
-      position: relative;
-    }
-    
-    .divider::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: #eee;
-      z-index: 1;
-    }
-    
-    .divider span {
-      background: white;
-      padding: 0 1rem;
-      position: relative;
-      z-index: 2;
-      color: #666;
-    }
-    
-    .social-login {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .password-strength {
-      height: 4px;
-      background: #eee;
-      margin-top: 0.5rem;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    
-    .strength-bar {
-      height: 100%;
-      width: 0%;
-      transition: width 0.3s;
-    }
-    
-    .strength-weak {
-      background: var(--danger);
-      width: 33%;
-    }
-    
-    .strength-medium {
-      background: var(--warning);
-      width: 66%;
-    }
-    
-    .strength-strong {
-      background: var(--success);
-      width: 100%;
-    }
-    
-    .strength-text {
-      font-size: 0.8rem;
-      margin-top: 0.3rem;
-      text-align: right;
-    }
-    
-    .footer-links {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-    
-    .footer-links a {
-      color: var(--primary);
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      margin-top: auto;
-      color: #666;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(0,0,0,0.1);
-    }
-    
-    /* Dashboard Styles */
-    .dashboard-container {
-      display: none;
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    
-    .welcome-message {
-      font-size: 1.5rem;
-    }
-    
-    .logout-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    
-    .dashboard-card {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .card-title {
-      color: var(--primary);
-      margin-top: 0;
-    }
-    
-    @media (max-width: 600px) {
-      .auth-container {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
-      
-      .social-login {
-        flex-direction: column;
-      }
-      
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elevation Academy - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --dark-gray: #7f8c8d;
+            --institute-color: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            border-top: 5px solid var(--institute-color);
+        }
+        
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        h2 {
+            color: var(--dark-gray);
+            margin-bottom: 25px;
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember-me input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            color: var(--institute-color);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--institute-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .create-account {
+            color: var(--dark-gray);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .create-account a {
+            color: var(--institute-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .whatsapp-opt {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .whatsapp-opt input {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-  <!-- Login/Signup Section -->
-  <div id="authSection">
-    <header class="container">
-<div class="menu">
-    <a href="index.html"><img src="logo.jpeg" alt="Elevation Academy" class="logo"></a>
-<nav aria-label="Main navigation">
-        <a href="index.html">Home</a>
- <a href="#contact">Contact</a>
-  </nav>
+    <div class="login-box">
+        <img src="logo.png" alt="The Elevation Academy" class="logo">
+        <h1>The Elevation Academy</h1>
+        <h2>Log In To Get Started</h2>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="student@theelevationacademy.in" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="........" required>
+            </div>
+            
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember Me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn">Login Now</button>
+            
+            <div class="create-account">
+                Do not Have an Account? <a href="#">Create New</a>
+            </div>
+            
+            <div class="whatsapp-opt">
+                <input type="checkbox" id="whatsappUpdates">
+                <label for="whatsappUpdates">Opt-in to get updates on WhatsApp!</label>
+            </div>
+        </form>
     </div>
-  </header>
-    
-    <main class="container">
-      <div class="auth-container">
-        <div class="tabs">
-          <div class="tab active" onclick="switchTab('login')">Login</div>
-          <div class="tab" onclick="switchTab('signup')">Sign Up</div>
-        </div>
-        
-        <!-- Login Form -->
-        <div id="login" class="tab-content active">
-          <form id="loginForm">
-            <div class="form-group">
-              <label for="loginEmail">Email</label>
-              <input type="email" id="loginEmail" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="loginPassword">Password</label>
-              <div class="password-container">
-                <input type="password" id="loginPassword" required>
-                <i class="toggle-password fas fa-eye" onclick="togglePassword('loginPassword')"></i>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Login</button>
-            </div>
-            
-            <div class="divider">
-              <span>or continue with</span>
-            </div>
-            
-            <div class="social-login">
-              <button type="button" class="btn btn-google" onclick="loginWithGoogle()">
-                <i class="fab fa-google"></i> Google
-              </button>
-              <button type="button" class="btn btn-facebook" onclick="loginWithFacebook()">
-                <i class="fab fa-facebook-f"></i> Facebook
-              </button>
-            </div>
-            
-            <div class="footer-links">
-              <a href="#" onclick="switchTab('forgotPassword')">Forgot password?</a>
-              <a href="#" onclick="switchTab('signup')">Create account</a>
-            </div>
-          </form>
-        </div>
-        
-        <!-- Signup Form -->
-        <div id="signup" class="tab-content">
-          <form id="signupForm">
-            <div class="form-group">
-              <label for="signupName">Full Name</label>
-              <input type="text" id="signupName" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="signupEmail">Email</label>
-              <input type="email" id="signupEmail" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="signupPhone">Phone Number</label>
-              <input type="tel" id="signupPhone" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="signupPassword">Create Password</label>
-              <div class="password-container">
-                <input type="password" id="signupPassword" required minlength="8" oninput="checkPasswordStrength()">
-                <i class="toggle-password fas fa-eye" onclick="togglePassword('signupPassword')"></i>
-              </div>
-              <div class="password-strength">
-                <div id="strengthBar" class="strength-bar"></div>
-              </div>
-              <div id="strengthText" class="strength-text"></div>
-            </div>
-            
-            <div class="form-group">
-              <label for="signupConfirmPassword">Confirm Password</label>
-              <div class="password-container">
-                <input type="password" id="signupConfirmPassword" required>
-                <i class="toggle-password fas fa-eye" onclick="togglePassword('signupConfirmPassword')"></i>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Create Account</button>
-            </div>
-            
-            <div class="footer-links">
-              <a href="#" onclick="switchTab('login')">Already have an account? Login</a>
-            </div>
-          </form>
-        </div>
-        
-        <!-- Forgot Password Form -->
-        <div id="forgotPassword" class="tab-content">
-          <form id="forgotPasswordForm">
-            <div class="form-group">
-              <label for="forgotEmail">Email Address</label>
-              <input type="email" id="forgotEmail" required>
-            </div>
-            
-            <div class="form-group">
-              <button type="submit" class="btn"><i class="fas fa-key"></i> Reset Password</button>
-            </div>
-            
-            <div class="footer-links">
-              <a href="#" onclick="switchTab('login')">Back to Login</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </main>
-  </div>
-  
-   <section id="contact" class="container">
-      <h2>Contact Us</h2>
-      <div class="contact-info">
-        <a href="mailto:thelevationaademy@gmail.com" aria-label="Email us">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          thelevationacademy@gmail.com
-        </a>
-        <a href="tel:+919266213394" aria-label="Call us">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-          </svg>
-          +91 92662 13394
-        </a>
-        <a href="https://www.youtube.com/channel/UC4YjN2zEqRm6n9LAin2c9Iw" target="_blank" rel="noopener" aria-label="Visit our YouTube channel">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-          </svg>
-          Visit Our Channel
-        </a>
-        <div class="social-links">
-          <a href="#" aria-label="Facebook">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-            </svg>
-          </a>
-          <a href="#" aria-label="Instagram">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-          </a>
-          <a href="#" aria-label="Twitter">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
 
-  <footer class="container">
-    <p>&copy; 2025 The Elevation Academy. All rights reserved.</p>
-    <p><a href="privacy policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
-  </footer>
-
-  <script>
-// Tab switching
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.remove('active');
-      });
-      
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      
-      document.getElementById(tabId).classList.add('active');
-      
-      // For the forgot password "tab" which doesn't have a visible tab header
-      if (tabId === 'forgotPassword') {
-        document.querySelector('.tab').classList.add('active');
-      } else {
-        event.currentTarget.classList.add('active');
-      }
-    }
-    
-    // Toggle password visibility
-    function togglePassword(fieldId) {
-      const field = document.getElementById(fieldId);
-      const icon = event.currentTarget;
-      if (field.type === 'password') {
-        field.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        field.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-      }
-    }
-    
-    // Password strength checker
-    function checkPasswordStrength() {
-      const password = document.getElementById('signupPassword').value;
-      const strengthBar = document.getElementById('strengthBar');
-      const strengthText = document.getElementById('strengthText');
-      
-      // Reset
-      strengthBar.className = 'strength-bar';
-      strengthText.textContent = '';
-      
-      if (password.length === 0) return;
-      
-      // Score system
-      let score = 0;
-      if (password.length >= 8) score++;
-      if (password.length >= 12) score++;
-      if (/[A-Z]/.test(password)) score++;
-      if (/[0-9]/.test(password)) score++;
-      if (/[^A-Za-z0-9]/.test(password)) score++;
-      
-      // Visual feedback
-      if (score <= 2) {
-        strengthBar.classList.add('strength-weak');
-        strengthText.textContent = 'Weak';
-        strengthText.style.color = 'var(--danger)';
-      } else if (score <= 4) {
-        strengthBar.classList.add('strength-medium');
-        strengthText.textContent = 'Medium';
-        strengthText.style.color = 'var(--warning)';
-      } else {
-        strengthBar.classList.add('strength-strong');
-        strengthText.textContent = 'Strong';
-        strengthText.style.color = 'var(--success)';
-      }
-    }
-    
-    // Form submission handlers
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      
-      // Simulate login - replace with actual authentication
-      if (email && password) {
-        showDashboard(email.split('@')[0]);
-      } else {
-        alert('Please enter both email and password');
-      }
-    });
-    
-    document.getElementById('signupForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const password = document.getElementById('signupPassword').value;
-      const confirmPassword = document.getElementById('signupConfirmPassword').value;
-      
-      if (password !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
-      }
-      
-      // Simulate signup - replace with actual registration
-      const name = document.getElementById('signupName').value;
-      showDashboard(name);
-      alert('Account created successfully!');
-    });
-    
-    document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('forgotEmail').value;
-      
-      // Simulate password reset - replace with actual implementation
-      alert(`Password reset link sent to ${email}`);
-      switchTab('login');
-    });
-    
-    // Social login handlers
-    function loginWithGoogle() {
-      // Replace with actual Google auth implementation
-      alert('Google login would be implemented here');
-      showDashboard('Google User');
-    }
-    
-    function loginWithFacebook() {
-      // Replace with actual Facebook auth implementation
-      alert('Facebook login would be implemented here');
-      showDashboard('Facebook User');
-    }
-    
-    // Dashboard functions
-    function showDashboard(name) {
-      document.getElementById('authSection').style.display = 'none';
-      document.getElementById('dashboardSection').style.display = 'block';
-      document.getElementById('userName').textContent = name || 'Student';
-    }
-    
-    function logout() {
-      document.getElementById('dashboardSection').style.display = 'none';
-      document.getElementById('authSection').style.display = 'block';
-      
-      // Clear forms
-      document.getElementById('loginForm').reset();
-      document.getElementById('signupForm').reset();
-      document.getElementById('forgotPasswordForm').reset();
-      
-      // Switch back to login tab
-      switchTab('login');
-      document.querySelector('.tab').classList.add('active');
-    }
-    
-    // Initialize
-    checkPasswordStrength();
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get input values
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    
-    // Simple validation
-    if(email && password) {
-      // In a real app, you would verify credentials with your backend
-      // For now, we'll just redirect to dashboard
-      window.location.href = "dashboard.html";
-      
-      /* 
-      // Actual implementation would look more like:
-      authenticateUser(email, password)
-        .then(user => {
-          window.location.href = "dashboard.html";
-        })
-        .catch(error => {
-          alert("Invalid credentials");
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple check - in real app, this would connect to your backend
+            if(email && password) {
+                // Check if admin email (you can change this)
+                if(email.includes('admin')) {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    window.location.href = 'student-dashboard.html';
+                }
+            } else {
+                alert('Please enter both email and password');
+            }
         });
-      */
-    } else {
-      alert("Please enter both email and password");
-    }
-  });
-</script>
+    </script>
 </body>
 </html>
