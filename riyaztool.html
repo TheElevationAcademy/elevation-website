@@ -1528,25 +1528,34 @@
         
         // Scroll to specific video and highlight it
         function scrollToVideo(videoId) {
-            const videoElement = document.getElementById(videoId);
-            if (videoElement) {
-                // Remove previous highlights
-                document.querySelectorAll('.highlight').forEach(el => {
-                    el.classList.remove('highlight');
-                });
-                
-                // Scroll to video
-                videoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // Highlight video
-                videoElement.classList.add('highlight');
-                
-                // Remove highlight after animation completes
-                setTimeout(() => {
-                    videoElement.classList.remove('highlight');
-                }, 2000);
-            }
-        }
+    console.log('Attempting to scroll to:', videoId); // Debug line
+    const videoElement = document.getElementById(videoId);
+    
+    if (videoElement) {
+        console.log('Element found:', videoElement); // Debug line
+        
+        // Remove previous highlights
+        document.querySelectorAll('.highlight').forEach(el => {
+            el.classList.remove('highlight');
+        });
+        
+        // Scroll to video
+        videoElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+        
+        // Highlight video
+        videoElement.classList.add('highlight');
+        
+        // Remove highlight after animation completes
+        setTimeout(() => {
+            videoElement.classList.remove('highlight');
+        }, 2000);
+    } else {
+        console.error('Element not found with ID:', videoId); // Debug line
+    }
+}
 // Show/hide scroll-to-top button
 window.addEventListener('scroll', function() {
     const scrollButton = document.querySelector('.scroll-to-top');
