@@ -169,5 +169,36 @@
             </ul>
         </div>
     </div>
+    <script>// At the top of <script> in both dashboard files
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    
+    if (!response.ok) {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+    
+    const user = await response.json();
+    document.querySelector('.user-profile span').textContent = user.name;
+    
+    // Admin-specific checks
+    if (user.role !== 'admin' && window.location.pathname.includes('admin-dashboard')) {
+      window.location.href = 'student-dashboard.html';
+    }
+  } catch (error) {
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+  }
+});
+    </script>
 </body>
 </html>
