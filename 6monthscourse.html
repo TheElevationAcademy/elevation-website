@@ -1,58 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Riyaz Audio Portal</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Classical Music Portal - Quick Access</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --secondary: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --accent: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .quick-access {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem auto;
+            max-width: 1200px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .access-buttons {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            scrollbar-width: none;
+        }
+        
+        .access-buttons::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .access-btn {
+            background: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        
+        .access-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .access-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            scroll-margin-top: 100px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-info {
+            padding: 1rem;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+        }
+        
+        .video-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        .speed-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .speed-btn {
+            background: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .speed-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .speed-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark);
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        .highlight {
+            animation: highlight 2s ease-out;
+            box-shadow: 0 0 0 4px rgba(142, 68, 173, 0.5);
+        }
+        
+        @keyframes highlight {
+            from { box-shadow: 0 0 0 8px rgba(142, 68, 173, 0.8); }
+            to { box-shadow: 0 0 0 4px rgba(142, 68, 173, 0); }
+        }
+        
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .access-buttons {
+                padding-bottom: 0.5rem;
+            }
+        }
+      .scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 99;
+    transition: all 0.3s;
+}
+
+.scroll-to-top:hover {
+    background: var(--secondary);
+    transform: translateY(-3px);
+}
+
+.scroll-to-top.visible {
+    display: flex;
+}
+      .search-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--primary);
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-container button {
+    padding: 12px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.search-container button:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+      .highlight-text {
+    background-color: #f1c40f;
+    color: #000;
+    padding: 0 2px;
+    border-radius: 3px;
+}
+    </style>
 </head>
-<body class="bg-amber-50 text-gray-800 font-serif">
-  <header class="bg-white shadow p-4 text-center text-2xl font-bold text-pink-700">
-    🎵 Riyaz Audio Portal
-  </header>
-
-  <main class="p-6 space-y-10 max-w-4xl mx-auto">
-    <!-- Raag Yaman Section -->
-    <section>
-      <h2 class="text-xl font-semibold text-pink-600 mb-4">Raag Yaman</h2>
-
-      <div class="mb-6">
-        <h3 class="font-medium text-lg">Tanpura – Slow Tempo</h3>
-        <div class="aspect-w-16 aspect-h-9">
-          <iframe class="w-full h-60" src="https://www.youtube.com/embed/JyRPu4MaRvg" title="Tanpura Yaman" frameborder="0" allowfullscreen></iframe>
+<body>
+    <header>
+      <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search for scales or taals..." aria-label="Search">
+    <button onclick="searchVideos()">Search</button>
+    <button onclick="clearSearch()">Clear</button>
+</div>
+        <h1>Indian Classical Music Portal</h1>
+        <p class="subtitle">Quick Access to Tabla Beats & Tanpura Scales</p>
+    </header>
+    
+    <div class="quick-access">
+        <h3>Quick Access:</h3>
+        <div class="access-buttons">
+            <!-- Tanpura Buttons -->
+            <button class="access-btn" onclick="scrollToVideo('tanpura-a-sharp')">A♯ Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-b')">B Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-c')">C Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-c-sharp')">C♯ Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-d')">D Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-d-sharp')">D♯ Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-e')">E Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-f')">F Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-f-sharp')">F♯ Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-g')">G Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-g-sharp')">G♯ Tanpura</button>
+            <button class="access-btn" onclick="scrollToVideo('tanpura-a')">A Tanpura</button>
+            
+            <!-- Teen Taal Buttons -->
+            <button class="access-btn" onclick="scrollToVideo('teen-c-120')">Teen C 120</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-c-150')">Teen C 150</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-c-200')">Teen C 200</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-b-120')">Teen B 120</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-b-150')">Teen B 150</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-b-200')">Teen B 200</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-gs-120')">Teen G♯ 120</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-gs-150')">Teen G♯ 150</button>
+            <button class="access-btn" onclick="scrollToVideo('teen-gs-200')">Teen G♯ 200</button>
+            
+            <!-- Ektaal Buttons -->
+            <button class="access-btn" onclick="scrollToVideo('ektaal-c-120')">Ektaal C 120</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-c-150')">Ektaal C 150</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-b-120')">Ektaal B 120</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-b-150')">Ektaal B 150</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-gs-120')">Ektaal G♯ 120</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-gs-150')">Ektaal G♯ 150</button>
+            
+            <!-- Ektaal Vilambit -->
+            <button class="access-btn" onclick="scrollToVideo('ektaal-vilambit-c')">Vilambit C</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-vilambit-b')">Vilambit B</button>
+            <button class="access-btn" onclick="scrollToVideo('ektaal-vilambit-gs')">Vilambit G♯</button>
+            
+            <!-- Keherwa -->
+            <button class="access-btn" onclick="scrollToVideo('keherwa-a-sharp')">Keherwa A♯</button>
+            <button class="access-btn" onclick="scrollToVideo('keherwa-c')">Keherwa C</button>
         </div>
-      </div>
+    </div>
+    
+    <div class="container">
+        <section class="section">
+            <h2>Tanpura Scales</h2>
+            <div class="video-grid">
+                <div class="video-card" id="tanpura-a-sharp">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/MhMPajCLmuA" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">A♯ (A sharp)</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-b">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wOaD0mLRgug" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">B</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-c">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/8uoxokWL4Yo" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">C</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-c-sharp">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wivBcCdduZQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">C♯ (C sharp)</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-d">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/-PAUMPwB6tQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">D</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-d-sharp">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/KCJZO1hIRQY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">D♯ (D sharp)</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-e">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Py2kPNmGh9U" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">E</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-f">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/_7X0f8rRRWo" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">F</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-f-sharp">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/jEgfPLEZQsc" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">F♯ (F sharp)</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-g">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/JyRPu4MaRvg" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">G</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-g-sharp">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/ipWiohtR4rE" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">G♯ (G sharp)</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="tanpura-a">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/yDBNBQdO-TY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">A</h3>
+                        <p class="video-desc">Tanpura drone for vocal practice</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Teen Taal</h2>
+            
+            <h3>C Scale</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn active" onclick="filterVideos('teen-c', 'all')">All</button>
+                <button class="speed-btn" onclick="filterVideos('teen-c', '120')">120 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('teen-c', '150')">150 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('teen-c', '200')">200 BPM</button>
+            </div>
+            <div class="video-grid" id="teen-c">
+                <div class="video-card" id="teen-c-120" data-speed="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/hhqcC3a5wQE" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - C (120 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at moderate tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="teen-c-150" data-speed="150">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/_72V3nwM56U" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - C (150 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at medium tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="teen-c-200" data-speed="200">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/OyLo4kVSMkM" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - C (200 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at fast tempo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>B Scale</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn active" onclick="filterVideos('teen-b', 'all')">All</button>
+                <button class="speed-btn" onclick="filterVideos('teen-b', '120')">120 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('teen-b', '150')">150 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('teen-b', '200')">200 BPM</button>
+            </div>
+            <div class="video-grid" id="teen-b">
+                <div class="video-card" id="teen-b-120" data-speed="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/P25ZynLUa6U" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - B (120 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at moderate tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="teen-b-150" data-speed="150">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/BMVyD5wQBY4" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - B (150 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at medium tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="teen-b-200" data-speed="200">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/4pX8FUNm9oY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - B (200 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at fast tempo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>G♯ Scale</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn active" onclick="filterVideos('teen-gs', 'all')">All</button>
+                <button class="speed-btn" onclick="filterVideos('teen-gs', '120')">120 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('teen-gs', '150')">150 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('teen-gs', '200')">200 BPM</button>
+            </div>
+            <div class="video-grid" id="teen-gs">
+                <div class="video-card" id="teen-gs-120" data-speed="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/LTn8o4lAHkw" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - G♯ (120 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at moderate tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="teen-gs-150" data-speed="150">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/5GVdW6Ww4bU" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - G♯ (150 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at medium tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="teen-gs-200" data-speed="200">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/jjJ2FgwN6dI" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Teen Taal - G♯ (200 BPM)</h3>
+                        <p class="video-desc">16-beat cycle at fast tempo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Ektaal</h2>
+            
+            <h3>C Scale</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn active" onclick="filterVideos('ektaal-c', 'all')">All</button>
+                <button class="speed-btn" onclick="filterVideos('ektaal-c', '120')">120 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('ektaal-c', '150')">150 BPM</button>
+            </div>
+            <div class="video-grid" id="ektaal-c">
+                <div class="video-card" id="ektaal-c-120" data-speed="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/XW0bxfLcxW0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal - C (120 BPM)</h3>
+                        <p class="video-desc">12-beat cycle at moderate tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="ektaal-c-150" data-speed="150">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/CEnn6d6Fzg8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal - C (150 BPM)</h3>
+                        <p class="video-desc">12-beat cycle at medium tempo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>B Scale</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn active" onclick="filterVideos('ektaal-b', 'all')">All</button>
+                <button class="speed-btn" onclick="filterVideos('ektaal-b', '120')">120 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('ektaal-b', '150')">150 BPM</button>
+            </div>
+            <div class="video-grid" id="ektaal-b">
+                <div class="video-card" id="ektaal-b-120" data-speed="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/u8wK6vY2Qnk" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal - B (120 BPM)</h3>
+                        <p class="video-desc">12-beat cycle at moderate tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="ektaal-b-150" data-speed="150">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/EPlKwRGwysY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal - B (150 BPM)</h3>
+                        <p class="video-desc">12-beat cycle at medium tempo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>G♯ Scale</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn active" onclick="filterVideos('ektaal-gs', 'all')">All</button>
+                <button class="speed-btn" onclick="filterVideos('ektaal-gs', '120')">120 BPM</button>
+                <button class="speed-btn" onclick="filterVideos('ektaal-gs', '150')">150 BPM</button>
+            </div>
+            <div class="video-grid" id="ektaal-gs">
+                <div class="video-card" id="ektaal-gs-120" data-speed="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/lrk0UOG4ik8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal - G♯ (120 BPM)</h3>
+                        <p class="video-desc">12-beat cycle at moderate tempo</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="ektaal-gs-150" data-speed="150">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/lrk0UOG4ik8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal - G♯ (150 BPM)</h3>
+                        <p class="video-desc">12-beat cycle at medium tempo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Ektaal Vilambit</h2>
+            <div class="video-grid">
+                <div class="video-card" id="ektaal-vilambit-c">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/1GQE1ImuHTc" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal Vilambit - C</h3>
+                        <p class="video-desc">Slow 12-beat cycle</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="ektaal-vilambit-b">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Fa8qI4HzBSM" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal Vilambit - B</h3>
+                        <p class="video-desc">Slow 12-beat cycle</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="ektaal-vilambit-gs">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/FRaeVazjYaQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ektaal Vilambit - G♯</h3>
+                        <p class="video-desc">Slow 12-beat cycle</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Keherwa (Ghazal Style)</h2>
+            <div class="video-grid">
+                <div class="video-card" id="keherwa-a-sharp">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/aBMPDp_Sa-E" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Keherwa - A♯</h3>
+                        <p class="video-desc">8-beat cycle in ghazal style</p>
+                    </div>
+                </div>
+                
+                <div class="video-card" id="keherwa-c">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/5_GWbOanmVA" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Keherwa - C Scale</h3>
+                        <p class="video-desc">8-beat cycle in ghazal style</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 Indian Classical Music Portal | Designed for musicians and students of Indian classical music</p>
+    </footer>
+    
+    <script>
+        // Filter videos by BPM
+        function filterVideos(sectionId, speed) {
+            // Update active button
+            const buttons = document.querySelectorAll(`#${sectionId} ~ .speed-buttons .speed-btn`);
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(speed) || 
+                    (speed === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter videos
+            const videos = document.querySelectorAll(`#${sectionId} .video-card`);
+            videos.forEach(video => {
+                if (speed === 'all' || video.getAttribute('data-speed') === speed) {
+                    video.style.display = 'block';
+                } else {
+                    video.style.display = 'none';
+                }
+            });
+        }
+        
+        // Scroll to specific video and highlight it
+        function scrollToVideo(videoId) {
+            const videoElement = document.getElementById(videoId);
+            if (videoElement) {
+                // Remove previous highlights
+                document.querySelectorAll('.highlight').forEach(el => {
+                    el.classList.remove('highlight');
+                });
+                
+                // Scroll to video
+                videoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Highlight video
+                videoElement.classList.add('highlight');
+                
+                // Remove highlight after animation completes
+                setTimeout(() => {
+                    videoElement.classList.remove('highlight');
+                }, 2000);
+            }
+        }
+// Show/hide scroll-to-top button
+window.addEventListener('scroll', function() {
+    const scrollButton = document.querySelector('.scroll-to-top');
+    if (window.scrollY > 300) {
+        scrollButton.classList.add('visible');
+    } else {
+        scrollButton.classList.remove('visible');
+    }
+});
+function searchVideos() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    if (!searchTerm.trim()) return;
+    
+    const allVideos = document.querySelectorAll('.video-card');
+    let foundAny = false;
+    
+    allVideos.forEach(video => {
+        const title = video.querySelector('.video-title').textContent.toLowerCase();
+        const desc = video.querySelector('.video-desc').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+            video.style.display = 'block';
+            foundAny = true;
+            // Highlight the matching text
+            highlightText(video, searchTerm);
+        } else {
+            video.style.display = 'none';
+        }
+    });
+    
+    if (!foundAny) {
+        alert('No matching videos found. Try different keywords like "Teen Taal" or "C scale"');
+    }
+}
 
-      <div class="mb-6">
-        <h3 class="font-medium text-lg">Tabla – Teentaal (Vilambit)</h3>
-        <div class="aspect-w-16 aspect-h-9">
-          <iframe class="w-full h-60" src="https://www.youtube.com/embed/hhqcC3a5wQE" title="Tabla Yaman" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    const allVideos = document.querySelectorAll('.video-card');
+    allVideos.forEach(video => {
+        video.style.display = 'block';
+        removeHighlights(video);
+    });
+}
 
-    <!-- Raag Bhairav Section -->
-    <section>
-      <h2 class="text-xl font-semibold text-pink-600 mb-4">Raag Bhairav</h2>
+function highlightText(element, searchTerm) {
+    removeHighlights(element);
+    const title = element.querySelector('.video-title');
+    const desc = element.querySelector('.video-desc');
+    
+    highlightTextInElement(title, searchTerm);
+    highlightTextInElement(desc, searchTerm);
+}
 
-      <div class="mb-6">
-        <h3 class="font-medium text-lg">Tanpura – Medium Tempo</h3>
-        <div class="aspect-w-16 aspect-h-9">
-          <iframe class="w-full h-60" src="https://www.youtube.com/embed/JyRPu4MaRvg" title="Tanpura Bhairav" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
+function highlightTextInElement(element, searchTerm) {
+    const text = element.textContent;
+    const regex = new RegExp(searchTerm, 'gi');
+    const newText = text.replace(regex, match => `<span class="highlight-text">${match}</span>`);
+    element.innerHTML = newText;
+}
 
-      <div class="mb-6">
-        <h3 class="font-medium text-lg">Tabla – Teentaal (Madhya)</h3>
-        <div class="aspect-w-16 aspect-h-9">
-          <iframe class="w-full h-60" src="https://www.youtube.com/embed/JyRPu4MaRvg" title="Tabla Bhairav" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-  </main>
+function removeHighlights(element) {
+    if (element) {
+        const highlights = element.querySelectorAll('.highlight-text');
+        highlights.forEach(hl => {
+            const parent = hl.parentNode;
+            parent.textContent = parent.textContent;
+        });
+    }
+}
 
-  <footer class="text-center text-sm text-gray-500 p-4">
-    © 2025 The Elevation Academy · All rights reserved
-  </footer>
+// Make search work when pressing Enter
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        searchVideos();
+    }
+});
+    </script>
+  <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+  
 </body>
 </html>
