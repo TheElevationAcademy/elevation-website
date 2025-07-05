@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riyaz Reminders - The Elevation Academy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         :root {
             --whatsapp-green: #25D366;
@@ -235,6 +233,40 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Admin section */
+        .admin-section {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .admin-toggle {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .admin-toggle button {
+            background: var(--whatsapp-teal-green);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #subscribersList {
+            margin-top: 1rem;
+        }
+        
+        .subscriber-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
@@ -293,8 +325,6 @@
                     </select>
                 </div>
                 
-                <input type="hidden" id="captchaToken" name="captchaToken">
-                
                 <button type="submit" class="submit-btn" id="submitBtn">
                     <i class="fab fa-whatsapp"></i> Get WhatsApp Reminders
                 </button>
@@ -302,19 +332,26 @@
                 <div id="statusMessage" class="status-message"></div>
                 
                 <div class="privacy-note">
-                    This site is protected by reCAPTCHA and the Google 
-                    <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and
-                    <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
-                    <br>By subscribing, you agree to receive WhatsApp messages from The Elevation Academy. 
+                    By subscribing, you agree to receive WhatsApp messages from The Elevation Academy. 
                     Standard messaging rates may apply. Reply STOP to unsubscribe at any time.
                 </div>
             </form>
+        </div>
+        
+        <div class="admin-toggle">
+            <button id="toggleAdmin">Admin View</button>
+        </div>
+        
+        <div class="admin-section" id="adminSection">
+            <h3>Subscribers (Local Storage)</h3>
+            <div id="subscribersList"></div>
+            <button id="clearSubscribers" style="margin-top: 1rem;">Clear All Subscribers</button>
         </div>
     </div>
 
     <script>
         // Initialize form submission
-        document.getElementById('whatsappReminderForm').addEventListener('submit', async function(e) {
+        document.getElementById('whatsappReminderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             const statusMessage = document.getElementById('statusMessage');
@@ -328,38 +365,59 @@
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                 
-                // Get CAPTCHA token first
-                const captchaToken = await grecaptcha.execute('YOUR_RECAPTCHA_SITE_KEY', {action: 'submit'});
-                document.getElementById('captchaToken').value = captchaToken;
-                
                 // Prepare form data
-                const formData = {
-                    name: document.getElementById('studentName').value.trim(),
-                    phone: document.getElementById('whatsappNumber').value.replace(/\D/g, ''),
-                    reminderTime: document.getElementById('reminderTime').value,
-                    captchaToken: captchaToken
-                };
+                const name = document.getElementById('studentName').value.trim();
+                let phone = document.getElementById('whatsappNumber').value.replace(/\D/g, '');
+                const reminderTime = document.getElementById('reminderTime').value;
                 
-                // Basic client-side validation
-                if (!formData.name || !formData.phone || !formData.reminderTime) {
+                // Validation
+                if (!name || !phone || !reminderTime) {
                     throw new Error('Please fill all required fields');
                 }
                 
-                if (formData.phone.length < 10) {
+                if (phone.length < 10) {
                     throw new Error('Please enter a valid phone number with country code');
                 }
                 
-                // Send to backend
-                const response = await axios.post('/api/subscribe', formData);
-                
-                if (response.data.success) {
-                    statusMessage.textContent = 'Subscription successful! Please check WhatsApp for verification.';
-                    statusMessage.className = 'status-message status-success';
-                    statusMessage.style.display = 'block';
-                    this.reset();
-                } else {
-                    throw new Error(response.data.message || 'Subscription failed. Please try again.');
+                // Add country code if missing
+                if (!phone.startsWith('+')) {
+                    phone = '+' + phone;
                 }
+                
+                // Save to localStorage
+                const subscriber = {
+                    id: Date.now().toString(),
+                    name,
+                    phone,
+                    reminderTime,
+                    status: 'pending',
+                    createdAt: new Date().toISOString()
+                };
+                
+                const subscribers = JSON.parse(localStorage.getItem('riyazSubscribers') || []);
+                subscribers.push(subscriber);
+                localStorage.setItem('riyazSubscribers', JSON.stringify(subscribers));
+                
+                // Show WhatsApp confirmation
+                const whatsappMessage = `Namaste ${name}!%0A%0A` +
+                    `Thank you for subscribing to The Elevation Academy Riyaz Reminders!%0A%0A` +
+                    `You'll receive daily practice reminders at ${reminderTime}.%0A%0A` +
+                    `To confirm your subscription, please reply "START".%0A` +
+                    `Reply STOP to unsubscribe anytime.%0A%0A` +
+                    `- The Elevation Academy Team`;
+                
+                // Open WhatsApp
+                window.open(`https://wa.me/${phone}?text=${whatsappMessage}`, '_blank');
+                
+                // Show success
+                statusMessage.textContent = 'Please check WhatsApp to complete your subscription!';
+                statusMessage.className = 'status-message status-success';
+                statusMessage.style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                updateSubscribersList();
+                
             } catch (error) {
                 console.error('Error:', error);
                 statusMessage.textContent = error.message || 'An error occurred. Please try again later.';
@@ -380,21 +438,46 @@
             this.value = value;
         });
         
-        // Track page view (analytics)
-        if (typeof analytics !== 'undefined') {
-            analytics.track('Page Viewed', {
-                page: 'Reminder Subscription',
-                url: window.location.href
-            });
+        // Admin functions
+        document.getElementById('toggleAdmin').addEventListener('click', function() {
+            const adminSection = document.getElementById('adminSection');
+            adminSection.style.display = adminSection.style.display === 'none' ? 'block' : 'none';
+            if (adminSection.style.display === 'block') {
+                updateSubscribersList();
+            }
+        });
+        
+        document.getElementById('clearSubscribers').addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all subscribers?')) {
+                localStorage.removeItem('riyazSubscribers');
+                updateSubscribersList();
+            }
+        });
+        
+        function updateSubscribersList() {
+            const subscribers = JSON.parse(localStorage.getItem('riyazSubscribers') || []);
+            const listElement = document.getElementById('subscribersList');
+            
+            if (subscribers.length === 0) {
+                listElement.innerHTML = '<p>No subscribers yet</p>';
+                return;
+            }
+            
+            listElement.innerHTML = subscribers.map(sub => `
+                <div class="subscriber-item">
+                    <div>
+                        <strong>${sub.name}</strong><br>
+                        ${sub.phone} • ${sub.reminderTime}
+                    </div>
+                    <div>
+                        ${new Date(sub.createdAt).toLocaleString()}
+                    </div>
+                </div>
+            `).join('');
         }
-    </script>
-    
-    <!-- Segment Analytics -->
-    <script>
-        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var t=analytics.methods[e];analytics[t]=analytics.factory(t)}analytics.load=function(e,t){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=t};analytics.SNIPPET_VERSION="4.1.0";
-        analytics.load("YOUR_SEGMENT_WRITE_KEY");
-        analytics.page();
-        }}();
+        
+        // Initialize admin section as hidden
+        document.getElementById('adminSection').style.display = 'none';
     </script>
 </body>
 </html>
