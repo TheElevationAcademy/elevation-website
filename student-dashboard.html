@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - The Elevation Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --dark-gray: #7f8c8d;
+            --institute-color: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dashboard-header h1 {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .course-sessions {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+        
+        .session-list {
+            list-style: none;
+        }
+        
+        .session-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .session-number {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+        
+        .session-arrow {
+            color: var(--dark-gray);
+            transition: transform 0.3s;
+        }
+        
+        .session-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding-left: 20px;
+        }
+        
+        .session-item.active .session-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .session-item.active .session-content {
+            max-height: 1000px;
+            margin-top: 15px;
+            border-left: 3px solid var(--institute-color);
+            padding-left: 17px;
+        }
+        
+        /* PDF Viewer Styles */
+        .pdf-viewer-container {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ddd;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none; /* Prevents download */
+        }
+        
+        .notes-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .no-download {
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Course Content</h1>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Student+Name&background=3498db&color=fff" alt="Student">
+                <span>Student Name</span>
+            </div>
+        </div>
+        
+        <div class="course-sessions">
+            <ul class="session-list" id="sessionList">
+                <!-- Session 11 -->
+                <li class="session-item">
+                    <div class="session-header">
+                        <span class="session-number">Session - 11: Raga Fundamentals</span>
+                        <i class="fas fa-chevron-down session-arrow"></i>
+                    </div>
+                    <div class="session-content">
+                        <h3>Lesson Materials</h3>
+                        
+                        <h4>PDF Notes:</h4>
+                        <div class="pdf-viewer-container">
+                            <!-- PDF embedded using Google Docs viewer -->
+                            <iframe class="pdf-viewer" 
+                                    src="https://docs.google.com/viewer?url=https://www.theelevationacademy.in/sample.pdf&embedded=true"
+                                    frameborder="0"></iframe>
+                        </div>
+                        <p class="no-download">Note: Downloading is disabled for copyright protection</p>
+                        
+                        <div class="notes-section">
+                            <h4>Key Points:</h4>
+                            <ul>
+                                <li>Understand the basic structure of a Raga</li>
+                                <li>Practice the Aaroh and Avroh patterns</li>
+                                <li>Focus on voice modulation exercises</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- Session 12 -->
+                <li class="session-item">
+                    <div class="session-header">
+                        <span class="session-number">Session - 12: Taal Basics</span>
+                        <i class="fas fa-chevron-down session-arrow"></i>
+                    </div>
+                    <div class="session-content">
+                        <h3>Lesson Materials</h3>
+                        
+                        <h4>PDF Notes:</h4>
+                        <div class="pdf-viewer-container">
+                            <iframe class="pdf-viewer" 
+                                    src="https://docs.google.com/viewer?url=https://www.theelevationacademy.in/taal-basics.pdf&embedded=true"
+                                    frameborder="0"></iframe>
+                        </div>
+                        <p class="no-download">Note: Downloading is disabled for copyright protection</p>
+                        
+                        <div class="notes-section">
+                            <h4>Practice Exercises:</h4>
+                            <ol>
+                                <li>Clap the Teen Taal cycle 10 times</li>
+                                <li>Count aloud while maintaining rhythm</li>
+                                <li>Record your practice and compare with demo</li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- Add more sessions following the same pattern -->
+                <li class="session-item">
+                    <div class="session-header">
+                        <span class="session-number">Session - 13: Advanced Techniques</span>
+                        <i class="fas fa-chevron-down session-arrow"></i>
+                    </div>
+                    <div class="session-content">
+                        <!-- Content would go here -->
+                    </div>
+                </li>
+                
+                <!-- Continue through Session 20 -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Make sessions expandable
+        document.getElementById('sessionList').addEventListener('click', function(e) {
+            const header = e.target.closest('.session-header');
+            if (header) {
+                const item = header.parentElement;
+                item.classList.toggle('active');
+                
+                // Close other open items
+                document.querySelectorAll('.session-item').forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Prevent right-click on PDF viewers
+        document.querySelectorAll('.pdf-viewer-container').forEach(container => {
+            container.addEventListener('contextmenu', e => {
+                e.preventDefault();
+                alert('Right-click is disabled to protect content');
+            });
+        });
+    </script>
+</body>
+</html>
