@@ -142,6 +142,17 @@
             margin-top: 10px;
             text-align: center;
         }
+        .logout-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 15px;
+}
+
     </style>
 </head>
 <body>
@@ -150,6 +161,8 @@
             <h1>Welcome to your Dashboard</h1>
             <div class="user-profile">
                 <img src="https://ui-avatars.com/api/?name=Student+Name&background=3498db&color=fff" alt="Student">
+<button id="logoutBtn" class="logout-btn">Logout</button>
+
                 <span>Student Name</span>
             </div>
         </div>
@@ -283,6 +296,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Right-click is disabled to protect content');
             });
         });
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('token');
+  window.location.href = 'login.html';
+});
+
+
     </script>
 </body>
 </html>
