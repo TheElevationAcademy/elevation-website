@@ -1066,13 +1066,23 @@
   updateSlide();
 </script>
 
-<!-- WhatsApp Floating Icon -->
-<a href="https://wa.me/919266213394" target="_blank" aria-label="Chat on WhatsApp"
-   class="fixed bottom-6 right-6 z-50">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
-       alt="WhatsApp" 
-       class="w-14 h-14 md:w-16 md:h-16 rounded-full drop-shadow-lg hover:scale-110 transition-transform duration-300 ease-in-out">
-</a>
+<script>
+    (function(w,d,s,c,r,a,m){
+      w['KiwiObject']=r;
+      w[r]=w[r] || function () {
+        (w[r].q=w[r].q||[]).push(arguments)};
+      w[r].l=1*new Date();
+        a=d.createElement(s);
+        m=d.getElementsByTagName(s)[0];
+      a.async=1;
+      a.src=c;
+      m.parentNode.insertBefore(a,m)
+    })(window,document,'script',"https://app.interakt.ai/kiwi-sdk/kiwi-sdk-17-prod-min.js?v="+ new Date().getTime(),'kiwi');
+    window.addEventListener("load",function () {
+      kiwi.init('', 'FpYwkkGM3ckY3pLcFANkEG12ylFE1zHo', {});
+    });
+  </script>
+  
 <a href="https://theelevationacademy.in/bookatrial.html" target="_blank"
    class="cta-btn fixed bottom-6 left-6 z-50 bg-black text-white hover:bg-gray-900 px-6 py-3 rounded-full shadow-lg text-base font-semibold transition-all duration-300 ease-in-out text-center">
   🎶 Book a Free Trial
