@@ -126,15 +126,24 @@
             </div>
         </div>
         
-        <div class="admin-actions">
-            <div class="action-card">
-  <h3>Upload PDF Session</h3>
+        <div class="action-card">
+  <h3>Upload New Session</h3>
   <form id="uploadForm">
     <input type="text" id="sessionTitle" placeholder="Session Title" required><br><br>
-    <input type="file" id="pdfFile" accept="application/pdf" required><br><br>
-    <button type="submit">Upload</button>
+    
+    <label>Upload PDF:</label><br>
+    <input type="file" id="pdfFile" accept="application/pdf"><br><br>
+
+    <label>Zoom Video Link:</label><br>
+    <input type="url" id="zoomLink" placeholder="https://zoom.us/recording-url" required><br><br>
+
+    <label>Assign to Students (emails, comma-separated):</label><br>
+    <textarea id="studentEmails" placeholder="karishmatamane.official@gmail.com, koushikak544@gmail.com" rows="3" required></textarea><br><br>
+
+    <button type="submit">Upload Session</button>
   </form>
 </div>
+
 
             <div class="action-card">
                 <h3>Manage Students</h3>
@@ -212,27 +221,44 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('token');
   window.location.href = 'login.html';
 });
-        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      document.getElementById('uploadForm').addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const title = document.getElementById('sessionTitle').value;
-  const file = document.getElementById('pdfFile').files[0];
+  const pdfFile = document.getElementById('pdfFile').files[0];
+  const zoomLink = document.getElementById('zoomLink').value;
+  const studentEmailsRaw = document.getElementById('studentEmails').value;
+
+  const students = studentEmailsRaw
+    .split(',')
+    .map(email => email.trim().toLowerCase())
+    .filter(email => email.length > 0);
 
   const formData = new FormData();
   formData.append('title', title);
-  formData.append('pdf', file);
+  formData.append('zoomLink', zoomLink);
+  formData.append('students', JSON.stringify(students)); // send as JSON string
+
+  if (pdfFile) {
+    formData.append('pdf', pdfFile);
+  }
 
   try {
     const token = localStorage.getItem('token');
+
     const res = await fetch('http://localhost:5000/api/admin/upload-session', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
       body: formData
     });
 
     const data = await res.json();
-    alert(data.message || 'Upload successful!');
+    alert(data.message || 'Session uploaded!');
   } catch (err) {
-    alert('Upload failed');
+    console.error(err);
+    alert('Upload failed. Check console for details.');
   }
 });
 
