@@ -199,6 +199,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.location.href = 'login.html';
   }
 });
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('token');
+  window.location.href = 'login.html';
+});
+
+
     </script>
 </body>
 </html>
