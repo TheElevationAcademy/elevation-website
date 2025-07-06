@@ -128,6 +128,15 @@
         
         <div class="admin-actions">
             <div class="action-card">
+  <h3>Upload PDF Session</h3>
+  <form id="uploadForm">
+    <input type="text" id="sessionTitle" placeholder="Session Title" required><br><br>
+    <input type="file" id="pdfFile" accept="application/pdf" required><br><br>
+    <button type="submit">Upload</button>
+  </form>
+</div>
+
+            <div class="action-card">
                 <h3>Manage Students</h3>
                 <p>View, add, or remove student accounts</p>
             </div>
@@ -203,6 +212,30 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('token');
   window.location.href = 'login.html';
 });
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('sessionTitle').value;
+  const file = document.getElementById('pdfFile').files[0];
+
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('pdf', file);
+
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch('http://localhost:5000/api/admin/upload-session', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message || 'Upload successful!');
+  } catch (err) {
+    alert('Upload failed');
+  }
+});
+
 
 
     </script>
