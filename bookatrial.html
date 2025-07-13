@@ -1031,7 +1031,7 @@ document.getElementById('trialForm').addEventListener('submit', async function (
   const name = data.name || "";
   const city = data.city || "";
   const timeSlot = data.timeSlot || "";
-  const message = `Hi, My name is ${name}, I have booked a free trial session with The Elevation Academy.%0My time slot is : ${timeSlot} .%0Alooking forward to hear back from you`;
+  const message = `Hi, My name is ${name}, I have booked a free trial session with <b>The Elevation Academy</b>.My time slot is : ${timeSlot} .%0Alooking forward to hear back from you`;
   const whatsappNumber = "919266213394"; // ← Change this to your WhatsApp number
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
   window.open(whatsappLink, "_blank");
